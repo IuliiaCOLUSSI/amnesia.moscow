@@ -1,0 +1,293 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Салон цветов и подарков "Amnesia"{% endblock %}
+
+{% block container %}
+    <section>
+    <div class="col-md-12 main-screen--home-page">
+   <!-- <h1>День Всех Влюбленных с Amnesia</h1>
+    <h2>Команда Amnesia позаботилась, чтобы Ваши проявления любви коснулись самого сердца!</h2>
+    <button type="button" class="btn btn-dark">Цветочный бокс</button>-->
+    </div>
+    </section>
+    <section>
+    <div class="container-fluid">
+    <div class='marquee-moving-left' style='overflow:hidden'>Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia</div>
+    <div class='marquee-moving-right' data-direction="right" style='overflow:hidden'>Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia Amnesia</div>
+        <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                    <div class="col-md-6 week-choice--home-page">
+                    <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                     </div>
+                    <div class="col-md-6">
+                        <h2>Выбор этой недели</h2>
+                        <hr>
+                        <h4>//titre</h4>
+                        <h4>//description</h4>
+                        <h4>//price</h4>
+                        <button type="button" class="btn btn-dark">Заказать прямо сейчас</button>
+                    </div>
+             </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4 catalog-card--home-page">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <button type="button" class="btn btn-dark">Цветочный бокс</button>
+                </div>
+                <div class="col-md-4 catalog-card--home-page">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <button type="button" class="btn btn-dark">Букет</button>
+                </div>
+                <div class="col-md-4 catalog-card--home-page">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <button type="button" class="btn btn-dark">Композиция</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+    <section>
+        <div class="container">
+        <h2>Быстрый заказ</h2>
+        
+        <div class="col-md-12">
+            <div class="row">
+                 <div class="col-md-4">
+                <button type="button" class="btn btn-dark">Цветочный бокс</button>
+                </div>
+                <div class="col-md-4">
+                <button type="button" class="btn btn-dark">Букет</button>
+                </div>
+                <div class="col-md-4">
+                <button type="button" class="btn btn-dark">Композиция</button>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Address 2</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        </div>
+       </div>
+    </section>
+    <section>
+    <div class="container">
+     <h2 class="text-center">С любовью к нашим клиентам</h2>
+         <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section>
+        <div class="col-md-4 about-us--home-page">
+        <div>
+        <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+        <p>«Amnesia» - это бутик цветов и подарков. Мы придерживаемся своего персонального стиля .<br>
+            Цветы наилучшего качества наша компания получает со всех уголков света напрямую без посредников , что позволяет нам снижать цены на цветы.<br>
+            Почему Амнезия? Многие задают нам этот вопрос.<br>
+            Все очень просто, мы просто влюбились с первого взгляда в розу сорта “AMNESIA”. Она не такая как все, имеет необычный кофейный оттенок и невероятно красива. А потом, у нас родился слоган «Amnesia - незабываемые цветы и подарки».</p>
+        </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+        <h2 class="text-center">Условия доставки</h2>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+        <h2 class="text-center">Цены</h2>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+        <section>
+        <div class="col-md-4">
+        <div class="logo--main-page">
+        </div>
+        <p></p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+        <h2 class="text-center">Наши клиенты</h2>
+        <div class="col-md-12">
+        <div class="row">
+        <div class="col-md-3">
+        <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-md-3">
+        <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-md-3">
+        <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-md-3">
+        <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
+        </div>
+        </div>
+        <h2 class="text-center">Что наши клиенты думают о нас</h2>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+        </div>
+        </div>
+    </section>
+    <footer>
+            <div class="container">      
+                <div class="col-md-12">
+                <div class="row">  
+                    <div class="col-md-6">
+                    <h4></h4>
+                    <p></p>
+                    <h4></h4>
+                    <p></p>
+                    <h4></h4>
+                    <p></p>
+                    </div>
+                    <div class="col-md-6">
+                    <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Address 2</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+                </form>
+                </div>
+                </div>
+            </div>
+            </div>
+    </footer>
+{% endblock %}

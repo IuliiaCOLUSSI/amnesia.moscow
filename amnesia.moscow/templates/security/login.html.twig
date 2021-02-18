@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вход в админ панель "Amnesia"{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="flex-fill d-flex flex-column justify-content-center py-4">
+      <div class="container-tight py-6">
+        <div class="text-center mb-4">
+            <a href=".">
+              <img src="{{ asset('/assets/images/logo/amnesia-black.png') }}" class="amnesia-logo" alt="логотип компании Амнезия">
+            </a>
+        </div>
+		<form method="post" class="my-login-validation card card-md" novalidate="">
+			{% if error %}
+            	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        	{% endif %}
+		    {% if app.user %}
+            <div class="mb-3">                                           
+				Вы вошли как {{ app.user.username }}, <a href="{{ path('app_logout') }}">Выйти</a>
+            </div>
+        	{% endif %}
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Вход в аккаунт</h2>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" required autofocus>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">
+                Пароль
+                <span class="form-label-description">
+                    <a href="#" class="float-right">										
+						Забыли пароль?
+					</a>
+                </span>
+              </label>
+              <div class="input-group input-group-flat">
+                <input type="password" name="password" id="inputPassword" class="form-control" required data-eye>
+                <span class="input-group-text pb-0">
+                  <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
+                  </a>
+                </span>
+              </div>
+            </div>
+            <div class="mb-2">
+              <label class="form-check">
+                <input type="checkbox" name="_remember_me" id="remember" class="form-check-input"/>
+                <span class="form-check-label">Запомнить меня</span>
+              </label>
+            </div>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="form-footer">
+              <button type="submit" class="btn btn-dark w-100">Войти</button>
+            </div>
+          </div>
+        </form>
+       {# <div class="text-center text-muted mt">
+          Vous n'avez pas de compte? <a href="{{ url('company_workers_inscription') }}" tabindex="-1">Créer un compte</a>
+        </div> #}
+      </div>
+    </div>
+        </div>
+
+{# block body %}
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div>
+						<img src="{{ asset('assets/images/logo-sga.jpg') }}" class="mt-2" alt="logo">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Login</h4>
+                                <form method="post" class="my-login-validation" novalidate="">
+				
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+
+                                    {% if app.user %}
+                                        <div class="mb-3">                                           
+											Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                        </div>
+                                    {% endif %}
+                                        <div class="form-group">
+                                        <label for="inputEmail">Email</label>
+                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" required autofocus>
+                                        
+                                        <label for="inputPassword">Mot de passe
+                                        <a href="{{ path('reset_password') }}" class="float-right">										
+											Mot de passe oublié?
+										</a>
+                                        </label>
+                                        <input type="password" name="password" id="inputPassword" class="form-control" required data-eye>
+                                    </div>
+                                    <div class="form-group">
+									<div class="custom-checkbox custom-control">
+										<input type="checkbox" name="_remember_me" id="remember" class="custom-control-input">
+										<label for="remember" class="custom-control-label">Souviens-toi de moi</label>
+									</div>
+								</div>
+                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <div class="form-group m-0">
+								<button type="submit" class="btn btn-primary btn-block custom-button">									
+										S'identifier
+									</button>
+								</div>
+								<div class="mt-4 text-center">							
+									Vous n'avez pas de compte? <a href="{{ url('inscription_admin') }}" >Créer une</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2017 &mdash; SGA 
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>#}
+{% endblock %}

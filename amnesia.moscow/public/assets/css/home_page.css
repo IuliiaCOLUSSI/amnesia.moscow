@@ -1,0 +1,48 @@
+/* MENU */
+
+.navbar-brand img {
+    height: 5rem;
+}
+
+
+/* RUNNING BANDO */
+.js-marquee {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #c9cccb;
+    margin-right: 8px!important;
+}
+
+/* FIRST SCREEN */
+.main-screen--home-page {
+    background: url(../images/test-images/IMG_6813.JPG) 100% 100% no-repeat;
+    background-size: cover;
+    height: 0;
+    width: 100%;
+    padding-top: 66.64%; /* (img-height / img-width * width) */
+    /* (853 / 1280 * 100) */
+}
+
+/* WEEK CHOICE */
+.week-choice--home-page img{
+    width: 85%;
+    float: right;
+}
+
+/* CATALOG */
+.catalog-card--home-page {
+}
+
+/* NEWS PANNEL */
+.news-panel--home-page {
+}
+
+/* ABOUT US */
+.about-us--home-page {
+    background: url(../images/test-images/IMG_6813.JPG) 100% 100% no-repeat;
+    background-size: cover;
+    height: 0;
+    width: 100%;
+    padding-top: 66.64%; /* (img-height / img-width * width) */
+    /* (853 / 1280 * 100) */
+}
