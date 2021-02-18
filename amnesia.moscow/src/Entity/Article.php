@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PurchaseItemRepository;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=PurchaseItemRepository::class)
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-class PurchaseItem
+class Article
 {
     /**
      * @ORM\Id
@@ -30,24 +30,9 @@ class PurchaseItem
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Purchase::class, inversedBy="purchaseItems")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $purchase;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $cost;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $quantity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="purchaseItems")
-     */
-    private $product;
+    private $mainImage;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -71,7 +56,7 @@ class PurchaseItem
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -90,50 +75,14 @@ class PurchaseItem
         return $this;
     }
 
-    public function getPurchase(): ?Purchase
+    public function getMainImage(): ?string
     {
-        return $this->purchase;
+        return $this->mainImage;
     }
 
-    public function setPurchase(?Purchase $purchase): self
+    public function setMainImage(?string $mainImage): self
     {
-        $this->purchase = $purchase;
-
-        return $this;
-    }
-
-    public function getCost(): ?float
-    {
-        return $this->cost;
-    }
-
-    public function setCost(?float $cost): self
-    {
-        $this->cost = $cost;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
+        $this->mainImage = $mainImage;
 
         return $this;
     }

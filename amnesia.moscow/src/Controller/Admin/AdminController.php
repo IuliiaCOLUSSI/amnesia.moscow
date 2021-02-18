@@ -152,4 +152,13 @@ class AdminController extends AbstractController
             'allUsers' => $allUsers
             ]);
     }
+
+
+    /**
+     * @Route("/admin/website-management/home-page", name="website_management_home_page")
+     */
+    public function websiteManagementHomePage(Request $request)
+    {
+        return $this->render('admin/website_management_home_page.html.twig');
+    }
 }

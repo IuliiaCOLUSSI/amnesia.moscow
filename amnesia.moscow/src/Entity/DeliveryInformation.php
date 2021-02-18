@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\DeliveryInformationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity(repositoryClass=DeliveryInformationRepository::class)
  */
@@ -40,7 +42,7 @@ class DeliveryInformation
     /**
      * @ORM\Column(type="time", nullable=true)
      */
-    private $ttimeDelivery;
+    private $timeDelivery;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -51,6 +53,19 @@ class DeliveryInformation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $birthdayPersonPhonenUmber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
+     * 
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -105,14 +120,14 @@ class DeliveryInformation
         return $this;
     }
 
-    public function getTtimeDelivery(): ?\DateTimeInterface
+    public function getTimeDelivery(): ?\DateTimeInterface
     {
-        return $this->ttimeDelivery;
+        return $this->timeDelivery;
     }
 
-    public function setTtimeDelivery(?\DateTimeInterface $ttimeDelivery): self
+    public function setTimeDelivery(?\DateTimeInterface $timeDelivery): self
     {
-        $this->ttimeDelivery = $ttimeDelivery;
+        $this->timeDelivery = $timeDelivery;
 
         return $this;
     }
@@ -137,6 +152,30 @@ class DeliveryInformation
     public function setBirthdayPersonPhonenUmber(?string $birthdayPersonPhonenUmber): self
     {
         $this->birthdayPersonPhonenUmber = $birthdayPersonPhonenUmber;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
