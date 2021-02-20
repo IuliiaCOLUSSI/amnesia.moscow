@@ -2,9 +2,8 @@
 
 namespace App\Form;
 
-
 use App\Entity\Product;
-use App\Entity\Category;
+use App\Entity\CatalogCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -13,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProductFormType extends AbstractType
@@ -58,7 +58,7 @@ class ProductFormType extends AbstractType
                     'placeholder' => ''
                 ],
             ])
-            ->add('color', TextType::class, [
+           /* ->add('color', TextType::class, [
                 'attr' => [
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
@@ -69,10 +69,10 @@ class ProductFormType extends AbstractType
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
                 ],
-            ])
-            ->add('inStock', NumberType::class, [
+            ])*/
+            ->add('inStock', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control fields-login form-check-input checked',
                     'placeholder' => ''
                 ],
             'required' => false,
@@ -93,7 +93,7 @@ class ProductFormType extends AbstractType
                 'data_class' => null,
             ]);*/
             ->add('category', EntityType::class, [
-                'class' => Category::class,
+                'class' => CatalogCategory::class,
                 'attr' => [
                     'class' => 'form-control fields-login',
                     'placeholder' => 'Выберете категорию'
@@ -101,7 +101,6 @@ class ProductFormType extends AbstractType
                 'choice_label' => function ($category) {
                     return $category->getTitle();
                 },
-
                 'required' => false
             ])
             ->add('titleEng', TextType::class, [
@@ -124,7 +123,7 @@ class ProductFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('priceDollar', NumberType::class, [
+            ->add('priceEng', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
@@ -135,8 +134,8 @@ class ProductFormType extends AbstractType
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
                 ],
-            ])
-            ->add('colorEng', TextType::class, [
+            ]);
+           /* ->add('colorEng', TextType::class, [
                 'attr' => [
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
@@ -147,7 +146,13 @@ class ProductFormType extends AbstractType
                     'class' => 'form-control fields-login',
                     'placeholder' => ''
                 ],
-            ]);
+            ]);*/
+    }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => Product::class,
+        ));
     }
 
 }

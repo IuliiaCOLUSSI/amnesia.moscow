@@ -47,6 +47,13 @@ class WebsiteManagementFormType extends AbstractType
                   'allow_add' => true,
                   'required' => false
               ])*/
+        ->add('announcements', CollectionType::class, [
+                'entry_type' => AnnouncementFormType::class,
+                'prototype' => true,
+                'label' => false,
+                'allow_add' => true,
+                'required' => false
+            ])
         ->add('partners', CollectionType::class, [
             'entry_type' => PartnerFormType::class,
             'prototype' => true,

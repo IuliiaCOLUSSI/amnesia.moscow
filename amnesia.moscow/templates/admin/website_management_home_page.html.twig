@@ -20,7 +20,7 @@
               <div class="col-12 p-0">
               <div class="row">
               <div class="col-6">
-                  <div class="card">
+                  <div class="card card-custom-backgroun-upload--admin-website-management">
                     <div class="row row-0">
                       <div class="col">
                         <div class="card-body">
@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="card">
+                  <div class="card card-custom-backgroun-upload--admin-website-management">
                     <div class="row row-0">
                       <div class="col">
                         <div class="card-body">
@@ -88,35 +88,87 @@
                 </div>
                 </div>
 
-          <!--  SECOND ROW WITH CATALOG CATEGORY CARDS -->
+          <!--  SECOND ROW WITH CATALOG PARTNERS -->
             <div class="col-12 p-0 mt-5">
               <div class="row">
             <div class="col-6">
             <div class="row">
-            {% for partner in partners %}
-            <div class="col-md-6 col-xl-6 mb-3">
-              <div class="card">
+            {% for announcement in announcements %}
+            <div class="col-md-12 col-xl-12 mb-3">
+              <div class="card form-custom-upload--admin-website-management">
                 <div class="card-body text-center">
                   <div class="mb-3">
-                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(partner, 'logoImageFile') }}')"></span>
+                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(announcement, 'mainImageFile') }}')"></span>
                   </div>
-                  <div class="card-title mb-1">{{ partner.title }}</div>
+                  <div class="card-title mb-1">{{ announcement.title }}</div>
+                  <div class="card-title mb-1">{{ announcement.description }}</div>
                 </div>
-                <a href="#" class="card-btn">Удалить партнера</a>
+                <div href="#" class="card-btn col-12">
+                <div class="row">
+                 <div class="col-6">
+                  <a href="#" class="btn custom-button--admin">Изменить</a>
+                  </div>
+                 <div class="col-6">
+                  <a href="#" class="btn custom-button--admin">Удалить</a>
+                  </div>
+                </div>
+                  </div>
               </div>
             </div>
+            </div>
            {% endfor %}
-                </div>
-                </div>
-
+              </div>
+              </div>
               <div class="col-6">
-                  <div class="card">
+                  <div class="card form-custom-upload--admin-website-management">
                     <div class="row row-0">
                       <div class="col">
                         <div class="card-body">
                           <div class="card-body-middle-layer">
                           <div class="custom-file">
-                                {{ form_widget(form.catalogCategory.vars.prototype) }}
+                            <div class="card-body-middle-layer">
+                                {{ form_widget(form.announcements.vars.prototype) }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Добавить новый раздел анонса</button>
+                        </div>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+
+
+          <!--  THIRD ROW WITH CATALOG PARTNERS -->
+            <div class="col-12 p-0 mt-5">
+              <div class="row">
+            <div class="col-6">
+            <div class="row">
+            {% for partner in partners %}
+            <div class="col-md-3 col-xl-3 mb-3">
+                <div class="text-center">
+                  <div class="mb-3">
+                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(partner, 'logoImageFile') }}')"></span>
+                  </div>
+                  <div class="card-title mb-1">{{ partner.title }}</div>
+                  <a href="#" class="btn custom-button--admin">Удалить</a>
+                </div>
+            </div>
+           {% endfor %}
+                </div>
+                </div>
+              <div class="col-6">
+                  <div class="card form-custom-upload--admin-website-management">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <div class="custom-file">
+                                {{ form_widget(form.partners.vars.prototype) }}
                           </div>
                         </div>
                         <div class="form-footer">

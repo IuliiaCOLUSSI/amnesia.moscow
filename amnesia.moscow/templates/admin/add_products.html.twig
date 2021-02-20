@@ -51,10 +51,24 @@
           </div>
         </div>
     </div>
+    <div class="row">
+        <div class="form-group mb-3 col-md-6">
+          <label class="form-label">Базовая цена</label>
+          <div>
+			  {{ form_widget(form.price) }}
+          </div>
+        </div>
+        <div class="form-group mb-3 col-md-6">
+          <label class="form-label">Цена со скидкой (если таковая имеется) </label>
+          <div>
+			  {{ form_widget(form.newPrice) }}
+          </div>
+        </div>
+    </div>
     <div class="card-header pl-0 mb-3">
         <h3 class="card-title">Дополнительные характеристики товара</h3>
     </div>
-		<div class="col-md-6">
+		<div class="col-md-6 p-0">
 				<div class="custom-file">
 				{{ form_widget(form.imageFile,{'attr': {'class': 'custom-file-input'}}) }}
 				</div>
@@ -168,7 +182,7 @@
             </div>
         <div class="mb-3">
         <label class="form-label">Категория букета</label>
-                    <div class="form-selectgroup">
+                    <div class="form-selectgroup cutom-radio-gender--add-product-page">
                     <label class="form-selectgroup-item">
                               <input type="radio" name="icons" value="home" class="form-selectgroup-input" checked="">
                               <span class="form-selectgroup-label"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><path d="M49.999,22.317c6.163,0,11.159-4.994,11.159-11.157C61.158,4.996,56.162,0,49.999,0c-6.162,0-11.16,4.996-11.16,11.16   C38.839,17.323,43.837,22.317,49.999,22.317z M79.89,54.109L72.35,38.57c-4.109-8.498-6.881-14.33-15.066-14.33H42.715   c-8.184,0-10.953,5.832-15.062,14.33L20.11,54.109c-1.118,2.294-0.159,5.045,2.135,6.166c2.294,1.119,5.07,0.168,6.19-2.126   l10.426-20.14l-7.619,37.859h7.619v19.113c0,2.771,2.246,5.018,5.017,5.018c2.771,0,5.017-2.246,5.017-5.018V75.869h2.208v19.113   c0,2.771,2.246,5.018,5.018,5.018c2.771,0,5.017-2.246,5.017-5.018V75.869h7.619L61.138,38.01l10.427,20.14   c1.119,2.294,3.898,3.245,6.191,2.126C80.049,59.154,81.008,56.403,79.89,54.109z"/></g><text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text><text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text></svg>
@@ -186,13 +200,25 @@
                             </label>
                     </div>
             </div>
+            <div class="form-group mb-3 col-md-6 p-0">
+              <label class="form-label">Авторские категории</label>
+              <div>
+                {{ form_widget(form.category) }}
+              </div>
+            </div>
+           <!-- <div class="choices" data-type="select-one" tabindex="0" role="listbox" aria-haspopup="true" aria-expanded="false">
+            <div class="form-select">
+            <select type="text" class="form-select form-control" placeholder="Select a date" id="select-users" value="" hidden="" tabindex="-1" data-choice="active"><option value="1">Chuck Tesla</option></select><div class="choices__list choices__list--single"><div class="choices__item choices__item--selectable" data-item="" data-id="1" data-value="1" data-custom-properties="null" aria-selected="true">Chuck Tesla</div></div></div><div class="choices__list dropdown-menu" aria-expanded="false"><div class="choices__list" role="listbox"><div id="choices--select-users-item-choice-1" class="choices__item dropdown-item active choices__item--selectable is-highlighted" role="option" data-choice="" data-id="1" data-value="1" data-select-text="Press to select" data-choice-selectable="" aria-selected="true">Chuck Tesla</div><div id="choices--select-users-item-choice-2" class="choices__item dropdown-item choices__item--selectable" role="option" data-choice="" data-id="2" data-value="2" data-select-text="Press to select" data-choice-selectable="" aria-selected="false">Elon Musk</div><div id="choices--select-users-item-choice-3" class="choices__item dropdown-item choices__item--selectable" role="option" data-choice="" data-id="3" data-value="3" data-select-text="Press to select" data-choice-selectable="">Paweł Kuna</div><div id="choices--select-users-item-choice-4" class="choices__item dropdown-item choices__item--selectable" role="option" data-choice="" data-id="4" data-value="4" data-select-text="Press to select" data-choice-selectable="">Nikola Tesla</div></div></div>
+            </div>-->
+
             <div class="mb-3">
                           <div class="form-label">Переключатель сезонности</div>
                           <label class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" checked> 
+                          {{ form_widget(form.inStock) }}
                             <span class="form-check-label">Активный и отражается на сайте</span>
                           </label>
                         </div>
+            
     <div class="card-header pl-0 mb-3">
         <h3 class="card-title">Описание товара на английском</h3>
     </div>
@@ -215,6 +241,20 @@
           <label class="form-label">Краткое описание</label>
           <div>
 			  {{ form_widget(form.smallDescriptionEng) }}
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-3 col-md-6">
+          <label class="form-label">Базовая цена</label>
+          <div>
+			  {{ form_widget(form.priceEng) }}
+          </div>
+        </div>
+        <div class="form-group mb-3 col-md-6">
+          <label class="form-label">Цена со скидкой (если таковая имеется) </label>
+          <div>
+			  {{ form_widget(form.newPriceEng) }}
           </div>
         </div>
     </div>

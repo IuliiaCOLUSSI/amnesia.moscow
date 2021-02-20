@@ -2,20 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\CatalogCategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnnouncementRepository;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=CatalogCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=AnnouncementRepository::class)
  * @Vich\Uploadable
  */
-class CatalogCategory
+class Announcement
 {
     /**
      * @ORM\Id
@@ -37,43 +35,42 @@ class CatalogCategory
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $titleEng;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $descriptionEng;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $mainImage;
+
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="catalog_background_image", fileNameProperty="mainImage")
+     * @Vich\UploadableField(mapping="announcement_image", fileNameProperty="mainImage")
      *
      * @var File
      */
     private $mainImageFile;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Website::class, inversedBy="announcements")
+     */
+    private $website;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Website::class, inversedBy="catalogCategory")
-     */
-    private $website;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="catalogCategory")
-     */
-    private $product;
-
-    public function __construct()
-    {
-        $this->product = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -100,6 +97,30 @@ class CatalogCategory
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTitleEng(): ?string
+    {
+        return $this->titleEng;
+    }
+
+    public function setTitleEng(?string $titleEng): self
+    {
+        $this->titleEng = $titleEng;
+
+        return $this;
+    }
+
+    public function getDescriptionEng(): ?string
+    {
+        return $this->descriptionEng;
+    }
+
+    public function setDescriptionEng(?string $descriptionEng): self
+    {
+        $this->descriptionEng = $descriptionEng;
 
         return $this;
     }
@@ -137,6 +158,18 @@ class CatalogCategory
         return $this->mainImageFile;
     }
 
+    public function getWebsite(): ?Website
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?Website $website): self
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -157,48 +190,6 @@ class CatalogCategory
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getWebsite(): ?Website
-    {
-        return $this->website;
-    }
-
-    public function setWebsite(?Website $website): self
-    {
-        $this->website = $website;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-            $product->setCatalogCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->product->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCatalogCategory() === $this) {
-                $product->setCatalogCategory(null);
-            }
-        }
 
         return $this;
     }

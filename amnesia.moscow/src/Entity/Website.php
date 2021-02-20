@@ -74,10 +74,21 @@ class Website
      */
     private $partners;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Announcement::class, mappedBy="website", mappedBy="website",cascade={"persist"})
+     */
+    private $announcements;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $aboutUsBody;
+
     public function __construct()
     {
         $this->catalogCategory = new ArrayCollection();
         $this->partners = new ArrayCollection();
+        $this->announcements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +244,48 @@ class Website
                 $partner->setWebsite(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Announcement[]
+     */
+    public function getAnnouncements(): Collection
+    {
+        return $this->announcements;
+    }
+
+    public function addAnnouncement(Announcement $announcement): self
+    {
+        if (!$this->announcements->contains($announcement)) {
+            $this->announcements[] = $announcement;
+            $announcement->setWebsite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnouncement(Announcement $announcement): self
+    {
+        if ($this->announcements->removeElement($announcement)) {
+            // set the owning side to null (unless already changed)
+            if ($announcement->getWebsite() === $this) {
+                $announcement->setWebsite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAboutUsBody(): ?string
+    {
+        return $this->aboutUsBody;
+    }
+
+    public function setAboutUsBody(?string $aboutUsBody): self
+    {
+        $this->aboutUsBody = $aboutUsBody;
 
         return $this;
     }

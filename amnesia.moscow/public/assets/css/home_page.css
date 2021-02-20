@@ -38,11 +38,3 @@
 }
 
 /* ABOUT US */
-.about-us--home-page {
-    background: url(../images/test-images/IMG_6813.JPG) 100% 100% no-repeat;
-    background-size: cover;
-    height: 0;
-    width: 100%;
-    padding-top: 66.64%; /* (img-height / img-width * width) */
-    /* (853 / 1280 * 100) */
-}

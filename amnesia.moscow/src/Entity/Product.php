@@ -119,7 +119,7 @@ class Product
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $priceDollar;
+    private $priceEng;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -134,12 +134,17 @@ class Product
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $newPriceDollar;
+    private $newpriceEng;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $smallDescriptionEng;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CatalogCategory::class, inversedBy="product")
+     */
+    private $catalogCategory;
 
     public function __construct()
     {
@@ -384,14 +389,14 @@ class Product
         return $this;
     }
 
-    public function getPriceDollar(): ?float
+    public function getPriceEng(): ?float
     {
-        return $this->priceDollar;
+        return $this->priceEng;
     }
 
-    public function setPriceDollar(?float $priceDollar): self
+    public function setPriceEng(?float $priceEng): self
     {
-        $this->priceDollar = $priceDollar;
+        $this->priceEng = $priceEng;
 
         return $this;
     }
@@ -420,14 +425,14 @@ class Product
         return $this;
     }
 
-    public function getNewPriceDollar(): ?float
+    public function getNewpriceEng(): ?float
     {
-        return $this->newPriceDollar;
+        return $this->newpriceEng;
     }
 
-    public function setNewPriceDollar(?float $newPriceDollar): self
+    public function setNewpriceEng(?float $newpriceEng): self
     {
-        $this->newPriceDollar = $newPriceDollar;
+        $this->newpriceEng = $newpriceEng;
 
         return $this;
     }
@@ -443,4 +448,18 @@ class Product
 
         return $this;
     }
+
+    public function getCatalogCategory(): ?CatalogCategory
+    {
+        return $this->catalogCategory;
+    }
+
+    public function setCatalogCategory(?CatalogCategory $catalogCategory): self
+    {
+        $this->catalogCategory = $catalogCategory;
+
+        return $this;
+    }
+
+
 }

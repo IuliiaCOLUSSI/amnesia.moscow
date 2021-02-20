@@ -6,7 +6,10 @@ use App\Entity\User;
 use App\Entity\Product;
 
 use Symfony\Component\Mime\Email;
+use App\Repository\PartnerRepository;
+use App\Repository\ProductRepository;
 use App\Repository\WebsiteRepository;
+use App\Repository\AnnouncementRepository;
 use App\Repository\CatalogCategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +25,35 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function Home(WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository)
+    public function Home(WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository)
     {
         $lastWebsiteObject = $websiteRepository->findOneBy([], ['id' => 'desc']);
         $catalogCategories = $catalogCategoryRepository->findAll();
+        $announcements = $announcementRepository -> findAll();
+        $partners = $partnerRepository -> findAll();
         return $this->render('shop/home.html.twig', [
             'website' => $lastWebsiteObject,
-            'catalogCategories' => $catalogCategories
+            'catalogCategories' => $catalogCategories,
+            'announcements' => $announcements,
+            'partners' => $partners,
+
         ]);
     }
 
     /**
      * @Route("/catalog", name="catalog")
      */
-    public function Catalog()
+    public function Catalog(Request $request, ProductRepository $productRepository, CatalogCategoryRepository $catalogCategoryRepository)
     {
-        return $this->render('shop/catalog.html.twig');
+        $catalogCategories = $catalogCategoryRepository->findAll();
+        $products = $productRepository ->findBy(
+            array(),
+            array('price' => 'ASC')
+        );
+
+        return $this->render('shop/catalog.html.twig', [
+            'products' => $products,
+            'catalogCategories' => $catalogCategories,
+        ]);
     }
 }

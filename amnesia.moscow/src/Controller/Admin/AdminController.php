@@ -12,10 +12,12 @@ use App\Form\InscriptionFormType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Form\CatalogCategoryFormType;
+use App\Repository\ArticleRepository;
 use App\Repository\PartnerRepository;
 use App\Repository\ProductRepository;
 use App\Repository\WebsiteRepository;
 use App\Form\WebsiteManagementFormType;
+use App\Repository\AnnouncementRepository;
 use App\Repository\CatalogCategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +68,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $product = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -97,7 +99,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $catalogCategory = $form -> getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($catalogCategory);
             $em->flush();
@@ -188,7 +190,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/website-management/home-page", name="website_management_home_page")
      */
-    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, PartnerRepository $partnerRepository)
+    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository)
     {
 
         if($websiteRepository->findAll() != null) {
@@ -198,6 +200,8 @@ class AdminController extends AbstractController
         }
 
         $partners = $partnerRepository -> findAll();
+        $announcements = $announcementRepository -> findAll();
+
         $form = $this->createForm(WebsiteManagementFormType::class, $website);
         $form->handleRequest($request);
         //$website = $websiteRepository->findAll();
@@ -218,7 +222,34 @@ class AdminController extends AbstractController
         return $this->render('admin/website_management_home_page.html.twig', [
             'form' => $form->createView(),
             'website' => $website,
-            'partners' => $partners
+            'partners' => $partners,
+            'announcements' => $announcements
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/blog-all-articles", name="blog_all_articles")
+     */
+    public function BlogHome(ArticleRepository $articleRepository)
+    {
+
+        $articles = $articleRepository -> findAll();
+        return $this->render('admin/blog_all_articles.html.twig', [
+            'articles' => $articles
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/blog-add-article", name="blog_add_article")
+     */
+    public function BlogAddArticle(ArticleRepository $articleRepository)
+    {
+
+        $articles = $articleRepository -> findAll();
+        return $this->render('admin/blog_add_article.html.twig', [
+            'articles' => $articles
         ]);
     }
 }
