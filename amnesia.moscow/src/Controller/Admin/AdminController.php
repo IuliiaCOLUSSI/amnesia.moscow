@@ -4,12 +4,19 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Website;
 use App\Form\ProductFormType;
 use App\Service\EmailService;
+use App\Entity\CatalogCategory;
 use App\Form\InscriptionFormType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
+use App\Form\CatalogCategoryFormType;
+use App\Repository\PartnerRepository;
 use App\Repository\ProductRepository;
+use App\Repository\WebsiteRepository;
+use App\Form\WebsiteManagementFormType;
+use App\Repository\CatalogCategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,6 +83,30 @@ class AdminController extends AbstractController
     public function allCategories()
     {
         return $this->render('admin/all_categories.html.twig');
+    }
+
+    /**
+     * @Route("/admin/all-catalog-categories", name="admin_all_catalog_categories")
+     */
+    public function allCatalogCategories(Request $request, CatalogCategoryRepository $catalogCategoryRepository)
+    {
+        $catalogCategory = new CatalogCategory();
+        $catalogCategories = $catalogCategoryRepository->findAll();
+
+        $form = $this->createForm(CatalogCategoryFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($catalogCategory);
+            $em->flush();
+    }
+
+        return $this->render('admin/all_catalog_categories.html.twig', [
+            'form' => $form->createView(),
+            'catalogCategories' => $catalogCategories
+        ]);
     }
 
     /**
@@ -157,8 +188,37 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/website-management/home-page", name="website_management_home_page")
      */
-    public function websiteManagementHomePage(Request $request)
+    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, PartnerRepository $partnerRepository)
     {
-        return $this->render('admin/website_management_home_page.html.twig');
+
+        if($websiteRepository->findAll() != null) {
+            $website = $websiteRepository->findOneBy([], ['id' => 'desc']);
+        }else {
+            $website = new Website();
+        }
+
+        $partners = $partnerRepository -> findAll();
+        $form = $this->createForm(WebsiteManagementFormType::class, $website);
+        $form->handleRequest($request);
+        //$website = $websiteRepository->findAll();
+      /*  if ($website) {
+            $website = new Website();
+        } else {
+            $website = new Website();
+        }*/
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $website = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($website);
+            $em->flush();
+
+        }
+        return $this->render('admin/website_management_home_page.html.twig', [
+            'form' => $form->createView(),
+            'website' => $website,
+            'partners' => $partners
+        ]);
     }
 }

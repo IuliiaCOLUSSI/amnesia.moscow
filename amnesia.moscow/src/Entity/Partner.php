@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\CatalogCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PartnerRepository;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=CatalogCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=PartnerRepository::class)
  * @Vich\Uploadable
  */
-class CatalogCategory
+class Partner
 {
     /**
      * @ORM\Id
@@ -35,31 +35,40 @@ class CatalogCategory
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $mainImage;
+    private $logoImage;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="catalog_background_image", fileNameProperty="mainImage")
+     * @Vich\UploadableField(mapping="partners_logo_image", fileNameProperty="logoImage")
      *
      * @var File
      */
-    private $mainImageFile;
+    private $logoImageFile;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titleEng;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $descriptionEng;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Website::class, inversedBy="catalogCategory")
+     * @ORM\ManyToOne(targetEntity=Website::class, inversedBy="partners")
      */
     private $website;
 
@@ -92,23 +101,23 @@ class CatalogCategory
         return $this;
     }
 
-    public function getMainImage(): ?string
+    public function getLogoImage(): ?string
     {
-        return $this->mainImage;
+        return $this->logoImage;
     }
 
-    public function setMainImage(?string $mainImage): self
+    public function setLogoImage(?string $logoImage): self
     {
-        $this->mainImage = $mainImage;
+        $this->logoImage = $logoImage;
 
         return $this;
     }
 
-    public function setMainImageFile (File $mainImage = null)
+    public function setLogoImageFile (File $logoImage = null)
     {
-        $this->mainImageFile = $mainImage;
+        $this->logoImageFile = $logoImage;
 
-        if ($mainImage) {
+        if ($logoImage) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
@@ -120,9 +129,33 @@ class CatalogCategory
     /**
      * @return File|null
      */
-    public function getMainImageFile()
+    public function getLogoImageFile()
     {
-        return $this->mainImageFile;
+        return $this->logoImageFile;
+    }
+
+    public function getTitleEng(): ?string
+    {
+        return $this->titleEng;
+    }
+
+    public function setTitleEng(?string $titleEng): self
+    {
+        $this->titleEng = $titleEng;
+
+        return $this;
+    }
+
+    public function getDescriptionEng(): ?string
+    {
+        return $this->descriptionEng;
+    }
+
+    public function setDescriptionEng(?string $descriptionEng): self
+    {
+        $this->descriptionEng = $descriptionEng;
+
+        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

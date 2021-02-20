@@ -2,13 +2,25 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        product_photo:
+        product_image:
             uri_prefix: /uploads/productPhoto
             upload_destination: '%kernel.project_dir%/public/uploads/productPhoto'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-        website_background_photo:
-            uri_prefix: /uploads/websiteBackgroundPhoto
-            upload_destination: '%kernel.project_dir%/public/uploads/productPhoto'
+        website_background_image:
+            uri_prefix: /uploads/websiteBackgroundImage
+            upload_destination: '%kernel.project_dir%/public/uploads/websiteBackgroundImage'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        catalog_background_image:
+            uri_prefix: /uploads/catalogBackgroundImage
+            upload_destination: '%kernel.project_dir%/public/uploads/catalogBackgroundImage'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        about_us_background_image:
+            uri_prefix: /uploads/aboutUsBackgroundImage
+            upload_destination: '%kernel.project_dir%/public/uploads/aboutUsBackgroundImage'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        partners_logo_image:
+            uri_prefix: /uploads/partnersLogoImage
+            upload_destination: '%kernel.project_dir%/public/uploads/partnersLogoImage'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
     #mappings:

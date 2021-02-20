@@ -1,0 +1,28 @@
+/* GLOBAL STYLES */
+
+.navbar-dark {
+    background: black;
+}
+
+.custom-button--admin, .custom-button--admin:hover {
+    background: black;
+    color: white;
+}
+
+/* WEBSITE-MANAGEMENT */
+
+.vich-image img {
+    display: none;
+}
+
+.image-preview--admin-website-management img{
+    width: 100%;
+}
+
+.card {
+   height: 333px;
+}
+
+.vich-image input {
+    margin-bottom: 20px!important;
+}

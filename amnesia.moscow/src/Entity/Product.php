@@ -77,7 +77,7 @@ class Product
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="product_photo", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image")
      *
      * @var File
      */

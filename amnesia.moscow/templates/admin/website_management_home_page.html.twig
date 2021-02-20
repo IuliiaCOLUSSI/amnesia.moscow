@@ -16,22 +16,120 @@
                 Управление сайтом
                 </h2>
               </div>
-              <div class="col-12">
+              {{ form_start(form) }}
+              <div class="col-12 p-0">
+              <div class="row">
+              <div class="col-6">
                   <div class="card">
                     <div class="row row-0">
                       <div class="col">
                         <div class="card-body">
-                          <h3 class="card-title">Card with left side image</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima
-                            neque pariatur perferendis sed suscipit velit vitae voluptatem.</p>
+                          <div class="card-body-middle-layer">
+                          <h3 class="card-title">Основное фото сайта</h3>
+                          <div class="custom-file">
+                          {{ form_widget(form.mainBackgroundImageFile,{'attr': {'class': 'custom-file-input'}}) }}
+                          </div>
+                          <div class="form-label-group">
+                            <p>
+                                {% if form_errors(form.mainBackgroundImageFile)|length > 0 %}
+                                  <ul class="alert alert-danger">Фото слишком большое. Допустимый размер 2 MiB
+                                    {% for error in form_errors(form.mainBackgroundImageFile) %}
+                                      <li>{{ error.message }}</li>
+                                    {% endfor %}
+                                  </ul>
+                              {% endif %}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Обновить фото</button>
+                        </div>
                         </div>
                       </div>
-                        <div class="col-3">
-                        <img src="./static/photos/2854fd67ddbd6217.jpg" class="w-100 h-100 object-cover" alt="Card side image">
+                        <div class="col-6 image-preview--admin-website-management">
+                        <img src="{{ vich_uploader_asset(website, 'mainBackgroundImageFile') }}">
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="col-6">
+                  <div class="card">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <h3 class="card-title">Основное фото сраздела <br>"О нас"</h3>
+                          <div class="custom-file">
+                          {{ form_widget(form.aboutUsBackgroundImageFile,{'attr': {'class': 'custom-file-input'}}) }}
+                          </div>
+                          <div class="form-label-group">
+                            <p>
+                                {% if form_errors(form.aboutUsBackgroundImageFile)|length > 0 %}
+                                  <ul class="alert alert-danger">Фото слишком большое. Допустимый размер 2 MiB
+                                    {% for error in form_errors(form.aboutUsBackgroundImageFile) %}
+                                      <li>{{ error.message }}</li>
+                                    {% endfor %}
+                                  </ul>
+                              {% endif %}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Обновить фото</button>
+                        </div>
+                       </div>
+                      </div>
+                        <div class="col-6 image-preview--admin-website-management">
+                        <img src="{{ vich_uploader_asset(website, 'aboutUsBackgroundImageFile') }}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+
+          <!--  SECOND ROW WITH CATALOG CATEGORY CARDS -->
+            <div class="col-12 p-0 mt-5">
+              <div class="row">
+            <div class="col-6">
+            <div class="row">
+            {% for partner in partners %}
+            <div class="col-md-6 col-xl-6 mb-3">
+              <div class="card">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(partner, 'logoImageFile') }}')"></span>
+                  </div>
+                  <div class="card-title mb-1">{{ partner.title }}</div>
+                </div>
+                <a href="#" class="card-btn">Удалить партнера</a>
+              </div>
+            </div>
+           {% endfor %}
+                </div>
+                </div>
+
+              <div class="col-6">
+                  <div class="card">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <div class="custom-file">
+                                {{ form_widget(form.catalogCategory.vars.prototype) }}
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Обновить фото</button>
+                        </div>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+              {{ form_end(form) }}  
           </div>
      </div>
   </div>

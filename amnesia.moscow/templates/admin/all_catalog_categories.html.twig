@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Административная панель "Amnesia"{% endblock %}
+{% block body %}
+  <div class="content mr-3" style="margin-inline-start: 17rem">
+        <div class="container-xl">
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col mb-3">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  Amnesia
+                </div>
+                <h2 class="page-title">
+                Управление разделами каталога
+                </h2>
+              </div>
+              {{ form_start(form) }}
+            <div class="col-12 p-0 mt-5">
+              <div class="row">
+            <div class="col-6">
+            <div class="row">
+            {% for catalogCategory in catalogCategories %}
+            <div class="col-md-6 col-xl-6 mb-3">
+              <div class="card">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(catalogCategory, 'mainImageFile') }}')"></span>
+                  </div>
+                  <div class="card-title mb-1">{{ catalogCategory.title }}</div>
+                </div>
+                <a href="#" class="card-btn">View full profile</a>
+              </div>
+            </div>
+           {% endfor %}
+              </div>
+              </div>
+              <div class="col-6">
+                  <div class="card">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <div class="custom-file">
+                            <div class="card-body-middle-layer">
+                                <div class="form-group mb-3 col-md-6">
+                                <label class="form-label">Название раздела каталога</label>
+                                <div>
+                                    {{ form_widget(form.title) }}
+                                </div>
+                                </div>
+                                <div class="form-group mb-3 col-md-6">
+                                <label class="form-label">Описание раздела каталога</label>
+                                <div>
+                                    {{ form_widget(form.description) }}
+                                </div>
+                                </div>
+                                <div class="custom-file">
+                                {{ form_widget(form.mainImageFile,{'attr': {'class': 'custom-file-input'}}) }}
+                                </div>
+                                <div class="form-label-group">
+                                    <p>
+                                        {% if form_errors(form.mainImageFile)|length > 0 %}
+                                        <ul class="alert alert-danger">Фото слишком большое. Допустимый размер 2 MiB
+                                            {% for error in form_errors(form.mainImageFile) %}
+                                            <li>{{ error.message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    </p>
+                                </div>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Добавить новый раздел каталога</button>
+                        </div>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+              {{ form_end(form) }}  
+          </div>
+     </div>
+  </div>
+</div>
+{% endblock %}

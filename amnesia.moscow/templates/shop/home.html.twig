@@ -4,7 +4,7 @@
 
 {% block container %}
     <section>
-    <div class="col-md-12 main-screen--home-page">
+    <div class="col-md-12 main-screen--home-page" style="background: url('{{ vich_uploader_asset(website, 'mainBackgroundImageFile') }}') 100% 100% no-repeat; background-size: cover; height: 0; width: 100%; padding-top: 66.64%;">
    <!-- <h1>День Всех Влюбленных с Amnesia</h1>
     <h2>Команда Amnesia позаботилась, чтобы Ваши проявления любви коснулись самого сердца!</h2>
     <button type="button" class="btn btn-dark">Цветочный бокс</button>-->
@@ -32,18 +32,18 @@
         </div>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4 catalog-card--home-page">
-                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
-                <button type="button" class="btn btn-dark">Цветочный бокс</button>
+            {% for catalogCategory in catalogCategories %}
+            <div class="col-md-4 catalog-card--home-page">
+              <div class="card">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                  <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(catalogCategory, 'mainImageFile') }}')"></span>
+                  </div>
                 </div>
-                <div class="col-md-4 catalog-card--home-page">
-                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
-                <button type="button" class="btn btn-dark">Букет</button>
-                </div>
-                <div class="col-md-4 catalog-card--home-page">
-                <img src="{{ asset('/assets/images/test-images/IMG_6813.JPG') }}" class="card-img-top" alt="...">
-                <button type="button" class="btn btn-dark">Композиция</button>
-                </div>
+                <a href="#" class="card-btn">{{ catalogCategory.title }}</a>
+              </div>
+            </div>
+           {% endfor %}
             </div>
         </div>
         </div>
