@@ -51,55 +51,71 @@
     </section>
     <section>
         <div class="container">
-        <h2>Быстрый заказ</h2>
+        <h2 class="text-center">Быстрый заказ</h2>
         
         <div class="col-md-12">
+        <div class="mb-4 mt-4 col-md-6 margin-center">
             <div class="row">
-                 <div class="col-md-4">
-                <button type="button" class="btn btn-dark">Цветочный бокс</button>
-                </div>
-                <div class="col-md-4">
-                <button type="button" class="btn btn-dark">Букет</button>
-                </div>
-                <div class="col-md-4">
-                <button type="button" class="btn btn-dark">Композиция</button>
-                </div>
-            </div>
+                          <div class="form-selectgroup">
+                            <label class="form-selectgroup-item col-md-4">
+                              <input type="radio" name="icons" value="home" class="form-selectgroup-input" checked="">
+                              <span class="form-selectgroup-label"><svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg>
+                                Цветочный бокс</span>
+                            </label>
+                            <label class="form-selectgroup-item col-md-4">
+                              <input type="radio" name="icons" value="user" class="form-selectgroup-input">
+                              <span class="form-selectgroup-label"><svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
+                                Букет</span>
+                            </label>
+                            <label class="form-selectgroup-item col-md-3">
+                              <input type="radio" name="icons" value="circle" class="form-selectgroup-input">
+                              <span class="form-selectgroup-label"><svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="9"></circle></svg>
+                                Композиция</span>
+                            </label>
+                          </div>
+                        </div>
+                       </div>
+            {{ form_start(form) }}
             <div class="row">
             <div class="col-md-6">
             </div>
             <div class="col-md-6">
                 <form class="row g-3">
+                <div class="col-md-12">
+                <div class="row">
                 <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <label for="inputEmail4" class="form-label">Ваше имя</label>
+                  <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.firstName)|e('html_attr') }}"></input>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4">
+                    <label for="inputPassword4" class="form-label">Имя получателя</label>
+                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.recipientName)|e('html_attr') }}"></input>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-12">
+                <div class="row">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Ваш номер телефона</label>
+                  <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.phoneNumber)|e('html_attr') }}"></input>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Номер телефона получателя</label>
+                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.recipientPhoneNumber)|e('html_attr') }}"></input>
+                </div>
+                </div>
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <label for="inputPassword4" class="form-label">Ваш email</label>
+                    <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.email)|e('html_attr') }}"></input>
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress2" class="form-label">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    <label for="inputAddress2" class="form-label">Адрес доставки</label>
+                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.address)|e('html_attr') }}"></input>
                 </div>
-                <div class="col-md-6">
-                    <label for="inputCity" class="form-label">City</label>
-                    <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label">State</label>
-                    <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="inputZip" class="form-label">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Комментарий к заказу / текст открытки</label>
+                 	{{ form_widget(form.comment) }}
                 </div>
                 <div class="col-12">
                     <div class="form-check">
@@ -110,9 +126,9 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
                 </div>
-                </form>
+                {{ form_end(form) }} 
             </div>
         </div>
         </div>

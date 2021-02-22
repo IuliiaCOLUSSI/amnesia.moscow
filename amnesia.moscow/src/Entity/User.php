@@ -40,7 +40,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="author",cascade={"persist"})
      */
     private $purchases;
 

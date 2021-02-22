@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DeliveryInformationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -47,12 +49,12 @@ class DeliveryInformation
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $birthdayPersonName;
+    private $recipientName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $birthdayPersonPhonenUmber;
+    private $recipientPhoneNumber;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -66,6 +68,16 @@ class DeliveryInformation
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="deliveryInformation")
+     */
+    private $purchase;
+
+    public function __construct()
+    {
+        $this->purchase = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,26 +144,26 @@ class DeliveryInformation
         return $this;
     }
 
-    public function getBirthdayPersonName(): ?string
+    public function getRecipientName(): ?string
     {
-        return $this->birthdayPersonName;
+        return $this->recipientName;
     }
 
-    public function setBirthdayPersonName(?string $birthdayPersonName): self
+    public function setRecipientName(?string $recipientName): self
     {
-        $this->birthdayPersonName = $birthdayPersonName;
+        $this->recipientName = $recipientName;
 
         return $this;
     }
 
-    public function getBirthdayPersonPhonenUmber(): ?string
+    public function getRecipientPhoneNumber(): ?string
     {
-        return $this->birthdayPersonPhonenUmber;
+        return $this->recipientPhoneNumber;
     }
 
-    public function setBirthdayPersonPhonenUmber(?string $birthdayPersonPhonenUmber): self
+    public function setRecipientPhoneNumber(?string $recipientPhoneNumber): self
     {
-        $this->birthdayPersonPhonenUmber = $birthdayPersonPhonenUmber;
+        $this->recipientPhoneNumber = $recipientPhoneNumber;
 
         return $this;
     }
@@ -176,6 +188,36 @@ class DeliveryInformation
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchase(): Collection
+    {
+        return $this->purchase;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchase->contains($purchase)) {
+            $this->purchase[] = $purchase;
+            $purchase->setDeliveryInformation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchase->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getDeliveryInformation() === $this) {
+                $purchase->setDeliveryInformation(null);
+            }
+        }
 
         return $this;
     }

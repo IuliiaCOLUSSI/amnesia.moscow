@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Product;
 
+use App\Entity\Purchase;
+use App\Form\PurchaseFormType;
 use Symfony\Component\Mime\Email;
 use App\Repository\PartnerRepository;
 use App\Repository\ProductRepository;
@@ -25,13 +27,25 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function Home(WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository)
+    public function Home(Request $request, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository)
     {
+        $purchase = new Purchase;
+        $form = $this->createForm(PurchaseFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $purchase = $form -> getData();
+            $em = $this->getDoctrine()->getManager();
+            dump($purchase);
+            $em->persist($purchase);
+            $em->flush();
+    }
         $lastWebsiteObject = $websiteRepository->findOneBy([], ['id' => 'desc']);
         $catalogCategories = $catalogCategoryRepository->findAll();
         $announcements = $announcementRepository -> findAll();
         $partners = $partnerRepository -> findAll();
         return $this->render('shop/home.html.twig', [
+            'form' => $form->createView(),
             'website' => $lastWebsiteObject,
             'catalogCategories' => $catalogCategories,
             'announcements' => $announcements,

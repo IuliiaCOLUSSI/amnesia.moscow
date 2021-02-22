@@ -69,9 +69,14 @@ class Purchase
     private $reference;
 
     /**
-     * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="purchase")
+     * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="purchase",cascade={"persist"})
      */
     private $purchaseItems;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DeliveryInformation::class, inversedBy="purchase")
+     */
+    private $deliveryInformation;
 
     public function __construct()
     {
@@ -217,6 +222,18 @@ class Purchase
                 $purchaseItem->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeliveryInformation(): ?DeliveryInformation
+    {
+        return $this->deliveryInformation;
+    }
+
+    public function setDeliveryInformation(?DeliveryInformation $deliveryInformation): self
+    {
+        $this->deliveryInformation = $deliveryInformation;
 
         return $this;
     }

@@ -146,6 +146,11 @@ class Product
      */
     private $catalogCategory;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $forGender;
+
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
@@ -457,6 +462,18 @@ class Product
     public function setCatalogCategory(?CatalogCategory $catalogCategory): self
     {
         $this->catalogCategory = $catalogCategory;
+
+        return $this;
+    }
+
+    public function getForGender(): ?string
+    {
+        return $this->forGender;
+    }
+
+    public function setForGender(?string $forGender): self
+    {
+        $this->forGender = $forGender;
 
         return $this;
     }

@@ -9,6 +9,16 @@
     color: white;
 }
 
+/* DATATABLE */
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+     --bs-table-accent-bg: none;
+}
+
+.odd {
+    background-color: white!important;
+}
+
 /* WEBSITE-MANAGEMENT */
 
 .vich-image img {
@@ -39,4 +49,10 @@
 
 .cutom-radio-gender--add-product-page svg{
     min-height: 111px;
+}
+
+/* ALL PRODUCT STYLES */
+
+.backoffice-image {
+    width: 30%;
 }

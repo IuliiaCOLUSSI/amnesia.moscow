@@ -92,7 +92,7 @@ class ProductFormType extends AbstractType
                 'required' => false,
                 'data_class' => null,
             ]);*/
-            ->add('category', EntityType::class, [
+            ->add('catalogCategory', EntityType::class, [
                 'class' => CatalogCategory::class,
                 'attr' => [
                     'class' => 'form-control fields-login',

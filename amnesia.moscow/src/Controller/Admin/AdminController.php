@@ -8,7 +8,7 @@ use App\Entity\Website;
 use App\Form\ProductFormType;
 use App\Service\EmailService;
 use App\Entity\CatalogCategory;
-use App\Form\InscriptionFormType;
+use App\Form\UserFormType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Form\CatalogCategoryFormType;
@@ -59,20 +59,76 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/add-products", name="admin_add_products")
      */
-    public function addProducts(Request $request)
+    public function addProducts(Request $request, ProductRepository $productRepository)
     {
 
-        $product = new Product();
-
-        $form = $this->createForm(ProductFormType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $product = $form->getData();
+        $color = $request->get('color');
+        if ($color != NULL) {
+            $product = new Product();
+           // $product = $productRepository->findOneBy([], ['id' => 'desc']);
+            $product->setColor($color);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
-    }
+    
+        }
+
+        $shape = $request->get('shape');
+        if ($shape != NULL) {
+            $product = $productRepository->findOneBy([], ['id' => 'desc']);
+            $product->setShape($shape);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+        }
+
+        $gender = $request->get('gender');
+        if ($gender != NULL) {
+            $product = $productRepository->findOneBy([], ['id' => 'desc']);
+            $product->setForGender($gender);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+        }
+
+
+        $form = $this->createForm(ProductFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $product = $productRepository->findOneBy([], ['id' => 'desc']);
+        $title = $form["title"]->getData();
+        $description = $form["description"]->getData();
+        $smallDescription = $form["smallDescription"]->getData();
+        $reference = $form["reference"]->getData();
+        $price = $form["price"]->getData();
+        $newPrice = $form["newPrice"]->getData();
+        $inStock = $form["inStock"]->getData();
+        $image = $form["imageFile"]->getData();
+        $titleEng = $form["titleEng"]->getData();
+        $descriptionEng = $form["descriptionEng"]->getData();
+        $priceEng = $form["priceEng"]->getData();
+        $newPriceEng = $form["newPriceEng"]->getData();
+        $catalogCategory = $form["catalogCategory"]->getData();
+
+        $product->setTitle($title);
+        $product->setDescription($description);
+        $product->setDescription($description);
+        $product->setSmallDescription($smallDescription);
+        $product->setReference($reference);
+        $product->setPrice($price);
+        $product->setNewPrice($newPrice);
+        $product->setInStock($inStock);
+        $product->setImageFile($image);
+        $product->setTitleEng($titleEng);
+        $product->setDescriptionEng($descriptionEng);
+        $product->setPriceEng($priceEng);
+        $product->setNewPriceEng($newPriceEng);
+        $product->setCatalogCategory($catalogCategory);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+}
 
         return $this->render('admin/add_products.html.twig', [
         'form' => $form->createView()
@@ -135,7 +191,7 @@ class AdminController extends AbstractController
 
         $user = new User();
 
-        $form = $this->createForm(InscriptionFormType::class);
+        $form = $this->createForm(UserFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
