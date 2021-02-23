@@ -36,7 +36,7 @@
                   <a href="#" class="btn custom-button--admin">Изменить</a>
                   </div>
                  <div class="col-6">
-                  <a href="#" class="btn custom-button--admin">Удалить</a>
+                  <a href="{{ path('admin_catalog_categories_delete', { id: catalogCategory.id }) }}" onclick="Вы уверены, что хотите удалить категорию?')" class="btn custom-button--admin">Удалить</a>
                   </div>
                 </div>
                   </div>

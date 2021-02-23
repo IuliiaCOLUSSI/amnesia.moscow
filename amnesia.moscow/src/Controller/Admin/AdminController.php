@@ -3,12 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Article;
 use App\Entity\Product;
 use App\Entity\Website;
+use App\Form\UserFormType;
 use App\Form\ProductFormType;
 use App\Service\EmailService;
 use App\Entity\CatalogCategory;
-use App\Form\UserFormType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Form\CatalogCategoryFormType;
@@ -26,6 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 
 class AdminController extends AbstractController
@@ -48,16 +50,17 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/all-products", name="admin_all_products")
+     * @Route("/admin/products/all", name="admin_all_products")
      */
     public function allProducts(ProductRepository $productRepository)
     {
         $products = $productRepository->findAll();
         return $this->render('admin/all_products.html.twig', ['products' => $products]);
     }
+    
 
     /**
-     * @Route("/admin/add-products", name="admin_add_products")
+     * @Route("/admin/products/add", name="admin_add_products")
      */
     public function addProducts(Request $request, ProductRepository $productRepository)
     {
@@ -136,15 +139,56 @@ class AdminController extends AbstractController
 }
 
     /**
-     * @Route("/admin/all-categories", name="admin_all_categories")
+     * Deletes a Product.
+     *
+     * @Route("/admin/product/{id<\d+>}/delete", name="admin_product_delete")
+     */
+    public function productDelete(Product $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Товар успешно удален");
+
+        return $this->redirectToRoute('admin_all_products');
+    }
+
+    /**
+     * @Route("/admin/categories/all", name="admin_all_categories")
      */
     public function allCategories()
     {
         return $this->render('admin/all_categories.html.twig');
     }
 
+
     /**
-     * @Route("/admin/all-catalog-categories", name="admin_all_catalog_categories")
+     * @Route("/admin/add-categories", name="admin_add_categories")
+     */
+    public function addCategories()
+    {
+        return $this->render('admin/add_categories.html.twig');
+    }
+
+    /**
+     * Deletes a Category.
+     *
+     * @Route("/admin/product/{id<\d+>}/delete", name="admin_product_delete")
+     */
+    public function categoryDelete(Product $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Категория успешно удалена");
+
+        return $this->redirectToRoute('admin_all_categories');
+    }
+
+    /**
+     * @Route("/admin/catalog-categories/all", name="admin_all_catalog_categories")
      */
     public function allCatalogCategories(Request $request, CatalogCategoryRepository $catalogCategoryRepository)
     {
@@ -167,12 +211,21 @@ class AdminController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/admin/add-categories", name="admin_add_categories")
+     * Deletes a Category.
+     *
+     * @Route("/admin/catalog-categories/{id<\d+>}/delete", name="admin_catalog_categories_delete")
      */
-    public function addCategories()
+    public function catalogCategoryDelete(CatalogCategory $data): Response
     {
-        return $this->render('admin/add_categories.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Категория каталога успешно удалена");
+
+        return $this->redirectToRoute('admin_all_catalog_categories');
     }
 
 
@@ -244,6 +297,24 @@ class AdminController extends AbstractController
 
 
     /**
+     * Deletes a User.
+     *
+     * @Route("/admin/users/{id<\d+>}/delete", name="admin_user_delete")
+     */
+    public function userDelete(User $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Пользователь успешно удален");
+
+        return $this->redirectToRoute('admin_users');
+    }
+
+
+
+    /**
      * @Route("/admin/website-management/home-page", name="website_management_home_page")
      */
     public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository)
@@ -308,4 +379,22 @@ class AdminController extends AbstractController
             'articles' => $articles
         ]);
     }
+
+
+    /**
+     * Deletes aт Article.
+     *
+     * @Route("/admin/article/{id<\d+>}/delete", name="admin_article_delete")
+     */
+    public function articleDelete(Article $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Статья успешно удалена");
+
+        return $this->redirectToRoute('blog_all_articles');
+    }
+    
 }
