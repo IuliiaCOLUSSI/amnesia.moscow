@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\Partner;
 use App\Entity\Product;
 use App\Entity\Website;
 use App\Form\UserFormType;
+use App\Entity\Announcement;
 use App\Form\ProductFormType;
 use App\Service\EmailService;
 use App\Entity\CatalogCategory;
@@ -23,11 +25,12 @@ use App\Repository\CatalogCategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\CustomSeasonalBlockRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 
 class AdminController extends AbstractController
@@ -52,12 +55,33 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/products/all", name="admin_all_products")
      */
-    public function allProducts(ProductRepository $productRepository)
+    public function allProducts(Request $request, ProductRepository $productRepository)
     {
+        $id = $request->get('id');
         $products = $productRepository->findAll();
-        return $this->render('admin/all_products.html.twig', ['products' => $products]);
+
+        foreach ($products as $product) {
+            $status = $product -> getIsProductOfTheWeek();
+        }
+
+        if ($id) {
+            $products = $productRepository->findAll();
+            foreach ($products as $product) {
+                $product->setIsProductOfTheWeek(0);
+            }
+            $product = $productRepository->findOneBy(array('id' => $id));
+            $product->setIsProductOfTheWeek(1);
+    
+    
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+        }
+
+        return $this->render('admin/all_products.html.twig', ['status' => $status, 'products' => $products]);
     }
     
+
 
     /**
      * @Route("/admin/products/add", name="admin_add_products")
@@ -70,6 +94,7 @@ class AdminController extends AbstractController
             $product = new Product();
            // $product = $productRepository->findOneBy([], ['id' => 'desc']);
             $product->setColor($color);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -169,22 +194,6 @@ class AdminController extends AbstractController
     public function addCategories()
     {
         return $this->render('admin/add_categories.html.twig');
-    }
-
-    /**
-     * Deletes a Category.
-     *
-     * @Route("/admin/product/{id<\d+>}/delete", name="admin_product_delete")
-     */
-    public function categoryDelete(Product $data): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($data);
-        $em->flush();
-
-        $this->addFlash('success', "Категория успешно удалена");
-
-        return $this->redirectToRoute('admin_all_categories');
     }
 
     /**
@@ -317,7 +326,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/website-management/home-page", name="website_management_home_page")
      */
-    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository)
+    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, CustomSeasonalBlockRepository $customSeasonalBlocksRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository)
     {
 
         if($websiteRepository->findAll() != null) {
@@ -327,6 +336,7 @@ class AdminController extends AbstractController
         }
 
         $partners = $partnerRepository -> findAll();
+        $customSeasonalBlocks = $customSeasonalBlocksRepository -> findAll();
         $announcements = $announcementRepository -> findAll();
 
         $form = $this->createForm(WebsiteManagementFormType::class, $website);
@@ -350,8 +360,42 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'website' => $website,
             'partners' => $partners,
+            'customSeasonalBlocks' => $customSeasonalBlocks,
             'announcements' => $announcements
         ]);
+    }
+
+    /**
+     * Deletes a Announcement.
+     *
+     * @Route("/admin/partner/{id<\d+>}/delete", name="admin_partner_delete")
+     */
+    public function partnerDelete(Partner $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Партнер успешно удален");
+
+        return $this->redirectToRoute('website_management_home_page');
+    }
+
+
+    /**
+     * Deletes a Announcement.
+     *
+     * @Route("/admin/announcement/{id<\d+>}/delete", name="admin_announcement_delete")
+     */
+    public function announcementDelete(Announcement $data): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($data);
+        $em->flush();
+
+        $this->addFlash('success', "Новость успешно удалена");
+
+        return $this->redirectToRoute('website_management_home_page');
     }
 
 

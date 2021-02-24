@@ -60,6 +60,13 @@ class WebsiteManagementFormType extends AbstractType
             'label' => false,
             'allow_add' => true,
             'required' => false
+        ]) 
+        ->add('customSeasonalBlocks', CollectionType::class, [
+            'entry_type' => CustomSeasonalBlockFormType::class,
+            'prototype' => true,
+            'label' => false,
+            'allow_add' => true,
+            'required' => false
         ]);
     }
 }

@@ -58,6 +58,11 @@ class ProductFormType extends AbstractType
                     'placeholder' => ''
                 ],
             ])
+            ->add('isProductOfTheWeek', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-check-input'
+                ],
+            ])
            /* ->add('color', TextType::class, [
                 'attr' => [
                     'class' => 'form-control fields-login',

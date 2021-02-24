@@ -84,11 +84,17 @@ class Website
      */
     private $aboutUsBody;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CustomSeasonalBlock::class, mappedBy="website", cascade={"persist"})
+     */
+    private $customSeasonalBlocks;
+
     public function __construct()
     {
         $this->catalogCategory = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->announcements = new ArrayCollection();
+        $this->customSeasonalBlocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -286,6 +292,36 @@ class Website
     public function setAboutUsBody(?string $aboutUsBody): self
     {
         $this->aboutUsBody = $aboutUsBody;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomSeasonalBlock[]
+     */
+    public function getCustomSeasonalBlocks(): Collection
+    {
+        return $this->customSeasonalBlocks;
+    }
+
+    public function addCustomSeasonalBlock(CustomSeasonalBlock $customSeasonalBlock): self
+    {
+        if (!$this->customSeasonalBlocks->contains($customSeasonalBlock)) {
+            $this->customSeasonalBlocks[] = $customSeasonalBlock;
+            $customSeasonalBlock->setWebsite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomSeasonalBlock(CustomSeasonalBlock $customSeasonalBlock): self
+    {
+        if ($this->customSeasonalBlocks->removeElement($customSeasonalBlock)) {
+            // set the owning side to null (unless already changed)
+            if ($customSeasonalBlock->getWebsite() === $this) {
+                $customSeasonalBlock->setWebsite(null);
+            }
+        }
 
         return $this;
     }

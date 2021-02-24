@@ -109,7 +109,7 @@
                   <a href="#" class="btn custom-button--admin">Изменить</a>
                   </div>
                  <div class="col-6">
-                  <a href="#" class="btn custom-button--admin">Удалить</a>
+                  <a href="{{ path('admin_announcement_delete', { id: announcement.id }) }}" onclick="Вы уверены, что хотите удалить новость?')" class="btn custom-button--admin">Удалить</a>
                   </div>
                 </div>
      
@@ -155,7 +155,7 @@
                   <span class="avatar avatar-xl avatar-rounded" style="background-image: url('{{ vich_uploader_asset(partner, 'logoImageFile') }}')"></span>
                   </div>
                   <div class="card-title mb-1">{{ partner.title }}</div>
-                  <a href="#" class="btn custom-button--admin">Удалить</a>
+                  <a href="{{ path('admin_partner_delete', { id: partner.id }) }}" onclick="Вы уверены, что хотите удалить партнера?')" class="btn custom-button--admin">Удалить</a>
                 </div>
             </div>
            {% endfor %}
@@ -173,6 +173,51 @@
                         </div>
                         <div class="form-footer">
                           <button type="submit" class="btn custom-button--admin">Обновить фото</button>
+                        </div>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+
+        <!--  FOUTH ROW WITH SEASONAL ANONCE -->
+        {% for customSeasonalBlock in customSeasonalBlocks %}
+        <div class="col-12 mb-5 ">
+                  <div class="card card-custom-backgroun-upload--admin-website-management">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <h3 class="card-title">{{ customSeasonalBlock.title }}</h3>
+                          <h3 class="card-title">{{ customSeasonalBlock.description }}</h3>
+                          <div class="form-label-group">
+                            <p>
+                            </p>
+                          </div>
+                        </div>
+                       </div>
+                      </div>
+                        <div class="col-6 image-preview--admin-website-management">
+                        <img src="{{ vich_uploader_asset(customSeasonalBlock, 'mainImageFile') }}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               {% endfor %}
+              <div class="col-12">
+                  <div class="card form-custom-upload--admin-website-management">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <div class="custom-file">
+                                {{ form_widget(form.customSeasonalBlocks.vars.prototype) }}
+                          </div>
+                        </div>
+                        <div class="form-footer">
+                          <button type="submit" class="btn custom-button--admin">Обновить новость</button>
                         </div>
                        </div>
                       </div>

@@ -30,23 +30,28 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function Home(Request $request, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder)
+    public function Home(Request $request, ProductRepository $productRepository, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder)
     {
         $user = new User;
+
+        $userId = $user->getId();
         
+        $password = "Amnesia" . date('ymd') . rand(1000, 9999);
+        $encodedPassword = $encoder->encodePassword($user, $password);
+        $user->setPassword($encodedPassword);
+
         $form1 = $this->createForm(UserFormType::class, $user);
         $form1->remove('lastName');
         $form1->remove('messageBody');
         $form1->handleRequest($request);
 
+        $isProductOfTheWeek = $productRepository -> findOneBy(array('isProductOfTheWeek' => 1));
+
+
         if ($form1->isSubmitted() && $form1->isValid()) {
             $purchase = $form1 -> getData();
-
-            $password = "Amnesia" . date('ymd') . rand(1000, 9999);
-            $encodedPassword = $encoder->encodePassword($user, $password);
-            $purchase->setPassword($encodedPassword);
             
-            dump($purchase);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($purchase);
             $em->flush();
@@ -59,12 +64,6 @@ class ShopController extends AbstractController
         if ($form2->isSubmitted() && $form2->isValid()) {
             $userQuestion = $form2 -> getData();
 
-            $password = "Amnesia" . date('ymd') . rand(1000, 9999);
-            $encodedPassword = $encoder->encodePassword($user, $password);
-            $userQuestion->setPassword($encodedPassword);
-
-            $em = $this->getDoctrine()->getManager();
-            dump($userQuestion);
             $em->persist($userQuestion);
             $em->flush();
     }
@@ -85,6 +84,7 @@ class ShopController extends AbstractController
             'catalogCategories' => $catalogCategories,
             'announcements' => $announcements,
             'partners' => $partners,
+            'isProductOfTheWeek' => $isProductOfTheWeek
 
         ]);
     }

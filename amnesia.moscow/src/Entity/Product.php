@@ -151,6 +151,11 @@ class Product
      */
     private $forGender;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isProductOfTheWeek;
+
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
@@ -474,6 +479,18 @@ class Product
     public function setForGender(?string $forGender): self
     {
         $this->forGender = $forGender;
+
+        return $this;
+    }
+
+    public function getIsProductOfTheWeek(): ?bool
+    {
+        return $this->isProductOfTheWeek;
+    }
+
+    public function setIsProductOfTheWeek(?bool $isProductOfTheWeek): self
+    {
+        $this->isProductOfTheWeek = $isProductOfTheWeek;
 
         return $this;
     }
