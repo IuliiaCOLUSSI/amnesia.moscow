@@ -75,7 +75,7 @@
                           </div>
                         </div>
                        </div>
-            {{ form_start(form) }}
+            {{ form_start(form1) }}
             <div class="row">
             <div class="col-md-6">
             </div>
@@ -85,11 +85,11 @@
                 <div class="row">
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">Ваше имя</label>
-                  <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.firstName)|e('html_attr') }}"></input>
+                    {{ form_widget(form1.firstName) }}
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Имя получателя</label>
-                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.recipientName)|e('html_attr') }}"></input>
+                    <input class="form-control"  data-prototype="{{ form_widget(form1.deliveryInformation.vars.prototype.recipientName)|e('html_attr') }}"></input>
                 </div>
                 </div>
                 </div>
@@ -97,25 +97,25 @@
                 <div class="row">
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">Ваш номер телефона</label>
-                  <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.phoneNumber)|e('html_attr') }}"></input>
+                    {{ form_widget(form1.phoneNumber) }}
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Номер телефона получателя</label>
-                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.recipientPhoneNumber)|e('html_attr') }}"></input>
+                    <input class="form-control"  data-prototype="{{ form_widget(form1.deliveryInformation.vars.prototype.recipientPhoneNumber)|e('html_attr') }}"></input>
                 </div>
                 </div>
                 </div>
                 <div class="col-12">
                     <label for="inputPassword4" class="form-label">Ваш email</label>
-                    <input class="form-control"  data-prototype="{{ form_widget(form.author.vars.prototype.email)|e('html_attr') }}"></input>
+                    {{ form_widget(form1.email) }}
                 </div>
                 <div class="col-12">
                     <label for="inputAddress2" class="form-label">Адрес доставки</label>
-                    <input class="form-control"  data-prototype="{{ form_widget(form.deliveryInformation.vars.prototype.address)|e('html_attr') }}"></input>
+                    <input class="form-control"  data-prototype="{{ form_widget(form1.deliveryInformation.vars.prototype.address)|e('html_attr') }}"></input>
                 </div>
                 <div class="col-12">
                     <label for="inputAddress2" class="form-label">Комментарий к заказу / текст открытки</label>
-                 	{{ form_widget(form.comment) }}
+                 	<input class="form-control"  data-prototype="{{ form_widget(form1.purchases.vars.prototype.comment)|e('html_attr') }}"></input>
                 </div>
                 <div class="col-12">
                     <div class="form-check">
@@ -128,7 +128,7 @@
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Оформить заказ</button>
                 </div>
-                {{ form_end(form) }} 
+                {{ form_end(form1) }} 
             </div>
         </div>
         </div>
@@ -233,50 +233,42 @@
                     <p></p>
                     </div>
                     <div class="col-md-6">
-                    <form class="row g-3">
+              {{ form_start(form2) }}
+            <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <form class="row g-3">
+                <div class="col-md-12">
+                <div class="row">
                 <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <label for="inputEmail4" class="form-label">Ваше имя</label>
+                    {{ form_widget(form2.firstName) }}
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4">
+                    <label for="inputEmail4" class="form-label">Ваш номер телефона</label>
+                    {{ form_widget(form2.phoneNumber) }}
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <label for="inputPassword4" class="form-label">Ваш email</label>
+                    {{ form_widget(form2.email) }}
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress2" class="form-label">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
-                <div class="col-md-6">
-                    <label for="inputCity" class="form-label">City</label>
-                    <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label">State</label>
-                    <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="inputZip" class="form-label">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <label for="inputAddress2" class="form-label">Ваше сообщение</label>
+                    {{ form_widget(form2.userQuestions.vars.prototype) }}
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    {{ form_widget(form2.isAgreeConditionsOfUse) }}
                     <label class="form-check-label" for="gridCheck">
-                        Check me out
+                        Я соглашаюсь с условиями использования
                     </label>
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
                 </div>
-                </form>
+                {{ form_end(form2) }} 
                 </div>
                 </div>
             </div>

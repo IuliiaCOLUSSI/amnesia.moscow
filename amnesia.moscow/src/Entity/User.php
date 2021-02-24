@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -65,21 +66,38 @@ class User implements UserInterface
     private $deliveryInformation;
 
     /**
+     * @var \DateTime $createdAt
+     * 
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
+     * @var \DateTime $updatedAt
+     * 
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserQuestion::class, mappedBy="author",cascade={"persist"})
+     */
+    private $userQuestions;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isAgreeConditionsOfUse;
+
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
         $this->purchases = new ArrayCollection();
         $this->deliveryInformation = new ArrayCollection();
+        $this->userQuestions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -276,6 +294,48 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserQuestion[]
+     */
+    public function getUserQuestions(): Collection
+    {
+        return $this->userQuestions;
+    }
+
+    public function addUserQuestion(UserQuestion $userQuestion): self
+    {
+        if (!$this->userQuestions->contains($userQuestion)) {
+            $this->userQuestions[] = $userQuestion;
+            $userQuestion->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserQuestion(UserQuestion $userQuestion): self
+    {
+        if ($this->userQuestions->removeElement($userQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($userQuestion->getAuthor() === $this) {
+                $userQuestion->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsAgreeConditionsOfUse(): ?bool
+    {
+        return $this->isAgreeConditionsOfUse;
+    }
+
+    public function setIsAgreeConditionsOfUse(?bool $isAgreeConditionsOfUse): self
+    {
+        $this->isAgreeConditionsOfUse = $isAgreeConditionsOfUse;
 
         return $this;
     }
