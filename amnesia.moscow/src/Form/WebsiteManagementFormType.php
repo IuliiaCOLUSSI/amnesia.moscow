@@ -25,20 +25,16 @@ class WebsiteManagementFormType extends AbstractType
             'required' => false,
             'allow_delete' => true,
             'data_class' => null,
-             //'attr' => [
-            //'class' => 'form-control-file custom-file-input mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2mb'],
-            //'class' => 'mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2 мб'],
-       // ]);
+            'attr' => [
+                'class' => 'form-control'],
        ])
        ->add('aboutUsBackgroundImageFile', VichImageType::class, [
         'label' => 'Загрузите фото фона блока "О нас"',
         'required' => false,
         'allow_delete' => true,
         'data_class' => null,
-         //'attr' => [
-        //'class' => 'form-control-file custom-file-input mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2mb'],
-        //'class' => 'mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2 мб'],
-   // ]);
+        'attr' => [
+            'class' => 'form-control'],
    ])
       /*->add('catalogCategory', CollectionType::class, [
                   'entry_type' => CatalogCategoryFormType::class,
@@ -63,6 +59,13 @@ class WebsiteManagementFormType extends AbstractType
         ]) 
         ->add('customSeasonalBlocks', CollectionType::class, [
             'entry_type' => CustomSeasonalBlockFormType::class,
+            'prototype' => true,
+            'label' => false,
+            'allow_add' => true,
+            'required' => false
+        ])
+        ->add('feedBacks', CollectionType::class, [
+            'entry_type' => FeedBackFormType::class,
             'prototype' => true,
             'label' => false,
             'allow_add' => true,

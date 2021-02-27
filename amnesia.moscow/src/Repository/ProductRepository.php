@@ -35,24 +35,24 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }*/
 
-   public function getRandomProducts(int $nb = 8)
-   {
-       return $this->createQueryBuilder("p")
-           ->orderBy('RAND()')
-           ->setMaxResults($nb)
-           ->getQuery()
-           ->getResult();
-   }
 
-   public function getSimilarProducts(int $nb = 4)
-   {
-       return $this->createQueryBuilder("p")
-           ->orderBy('RAND()')
-           ->setMaxResults($nb)
-           ->getQuery()
-           ->getResult();
-   }
+    public function getRandomProducts(int $nb = 8)
+    {
+        return $this->createQueryBuilder("p")
+            ->orderBy('RAND()')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function getSimilarProducts(int $nb = 4)
+    {
+        return $this->createQueryBuilder("p")
+            ->orderBy('RAND()')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult();
+    }
    
   /**
      * Récupère les produits en lien avec une recherche

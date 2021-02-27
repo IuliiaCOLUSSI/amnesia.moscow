@@ -35,33 +35,33 @@ class ProductFormType extends AbstractType
             ])
             ->add('smallDescription', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
                 'required' => false,
             ])
             ->add('reference', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
             ])
             ->add('price', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
             ])
             ->add('newPrice', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
             ])
             ->add('isProductOfTheWeek', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-check-input'
-                ],
+                    'class' => 'form-check-input',
+                ]
             ])
            /* ->add('color', TextType::class, [
                 'attr' => [
@@ -88,7 +88,7 @@ class ProductFormType extends AbstractType
                 'allow_delete' => true,
                 'data_class' => null,
                  'attr' => [
-                'class' => 'mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2mb'],
+                'class' => 'form-control'],
             ])
            /* ->add('images', FileType::class, [
                 'label' => 'Дополнительные фото товара',
@@ -130,13 +130,13 @@ class ProductFormType extends AbstractType
             ])
             ->add('priceEng', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
             ])
             ->add('newPriceEng', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control fields-login',
+                    'class' => 'form-control',
                     'placeholder' => ''
                 ],
             ]);

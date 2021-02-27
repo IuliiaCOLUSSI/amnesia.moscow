@@ -26,19 +26,19 @@
                         <div class="card-body">
                           <div class="card-body-middle-layer">
                           <h3 class="card-title">Основное фото сайта</h3>
-                          <div class="custom-file">
-                          {{ form_widget(form.mainBackgroundImageFile,{'attr': {'class': 'custom-file-input'}}) }}
-                          </div>
-                          <div class="form-label-group">
+                           <div class="form-label-group">
                             <p>
                                 {% if form_errors(form.mainBackgroundImageFile)|length > 0 %}
-                                  <ul class="alert alert-danger">Фото слишком большое. Допустимый размер 2 MiB
+                                  <ul class="alert alert-danger m-0">Фото слишком большое.
                                     {% for error in form_errors(form.mainBackgroundImageFile) %}
                                       <li>{{ error.message }}</li>
                                     {% endfor %}
                                   </ul>
                               {% endif %}
                             </p>
+                          </div>
+                          <div class="custom-file">
+                          {{ form_widget(form.mainBackgroundImageFile,{'attr': {'class': 'custom-file-input'}}) }}
                           </div>
                         </div>
                         <div class="form-footer">
@@ -65,7 +65,7 @@
                           <div class="form-label-group">
                             <p>
                                 {% if form_errors(form.aboutUsBackgroundImageFile)|length > 0 %}
-                                  <ul class="alert alert-danger">Фото слишком большое. Допустимый размер 2 MiB
+                                  <ul class="alert alert-danger">Фото слишком большое.
                                     {% for error in form_errors(form.aboutUsBackgroundImageFile) %}
                                       <li>{{ error.message }}</li>
                                     {% endfor %}
@@ -126,12 +126,21 @@
                         <div class="card-body">
                           <div class="card-body-middle-layer">
                           <div class="custom-file">
+                            <div class="form-label-group">
+                            <p>
+                                    {% for error in form_errors(form) %}
+                                     <ul class="alert alert-danger m-0">
+                                      <li>Фото слишком большое.</li>
+                                  </ul>
+                                      {% endfor %}
+                            </p>
+                          </div>
                             <div class="card-body-middle-layer">
                                 {{ form_widget(form.announcements.vars.prototype) }}
                             </div>
                           </div>
                         </div>
-                        <div class="form-footer">
+                        <div class="form-footer d-flex justify-content-end">
                           <button type="submit" class="btn custom-button--admin">Добавить новый раздел анонса</button>
                         </div>
                        </div>
@@ -171,8 +180,8 @@
                                 {{ form_widget(form.partners.vars.prototype) }}
                           </div>
                         </div>
-                        <div class="form-footer">
-                          <button type="submit" class="btn custom-button--admin">Обновить фото</button>
+                        <div class="form-footer d-flex justify-content-end">
+                          <button type="submit" class="btn custom-button--admin">Добавить партнера</button>
                         </div>
                        </div>
                       </div>
@@ -216,13 +225,52 @@
                                 {{ form_widget(form.customSeasonalBlocks.vars.prototype) }}
                           </div>
                         </div>
-                        <div class="form-footer">
+                        <div class="form-footer d-flex justify-content-end">
                           <button type="submit" class="btn custom-button--admin">Обновить новость</button>
                         </div>
                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                </div>
+                </div>
+        <!--  FIFTH ROW WITH SEASONAL ANONCE -->
+        <div class="col-12">
+        <div class="row">
+        <div class="col-6">
+        {% for feedback in feedbacks %}
+                        <div class="card-body feed-back-block--admin-website bg-white">
+                          <div class="card-body-middle-layer">
+                          <h3 class="card-title ml-5 pl-3 pt-2">{{ feedback.description }}</h3>
+                          <div class="form-label-group">
+                            <p>
+                            </p>
+                          </div>
+                        </div>
+                       </div>
+                  <h3 class="card-title text-left mt-2">{{ feedback.author }}</h3>
+                </div>
+               {% endfor %}
+              <div class="col-6 mb-5">
+                  <div class="card form-custom-upload--admin-website-management">
+                    <div class="row row-0">
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-body-middle-layer">
+                          <div class="custom-file">
+                                {{ form_widget(form.feedBacks.vars.prototype) }}
+                          </div>
+                        </div>
+                       </div>
+                        <div class="form-footer d-flex justify-content-end">
+                          <button type="submit" class="btn custom-button--admin">Добавить новый отзыв</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
                 </div>
                 </div>
                 </div>

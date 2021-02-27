@@ -46,10 +46,8 @@ class AnnouncementFormType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'data_class' => null,
-                 //'attr' => [
-                //'class' => 'form-control-file custom-file-input mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2mb'],
-                //'class' => 'mb-5', 'id' => 'formControlFile2', 'placeholder' => 'Загрузите фото не более 2 мб'],
-           // ]);
+                 'attr' => [
+                'class' => 'form-control'],
            ]);
     }
     public function configureOptions(OptionsResolver $resolver)

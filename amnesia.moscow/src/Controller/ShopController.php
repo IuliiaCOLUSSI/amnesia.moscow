@@ -14,11 +14,14 @@ use App\Form\UserQuestionFormType;
 use App\Repository\PartnerRepository;
 use App\Repository\ProductRepository;
 use App\Repository\WebsiteRepository;
+use App\Repository\FeedBackRepository;
+use App\Repository\PurchaseRepository;
 use App\Repository\AnnouncementRepository;
 use App\Repository\CatalogCategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +33,7 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function Home(Request $request, ProductRepository $productRepository, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder)
+    public function Home(Request $request, ProductRepository $productRepository, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder, FeedBackRepository $feedBackRepository)
     {
         $user = new User;
 
@@ -73,6 +76,7 @@ class ShopController extends AbstractController
         $catalogCategories = $catalogCategoryRepository->findAll();
         $announcements = $announcementRepository -> findAll();
         $partners = $partnerRepository -> findAll();
+        $feedbacks = $feedBackRepository -> findAll();
 
 
 
@@ -84,7 +88,8 @@ class ShopController extends AbstractController
             'catalogCategories' => $catalogCategories,
             'announcements' => $announcements,
             'partners' => $partners,
-            'isProductOfTheWeek' => $isProductOfTheWeek
+            'isProductOfTheWeek' => $isProductOfTheWeek,
+            'feedbacks' => $feedbacks
 
         ]);
     }
@@ -105,4 +110,47 @@ class ShopController extends AbstractController
             'catalogCategories' => $catalogCategories,
         ]);
     }
+
+
+    /**
+     * @Route("/catalog/{slug}", name="product_card")
+     */
+    public function ProductCard(Product $product, ProductRepository $productRepository, SessionInterface $session)
+    {
+        $cart = $session->get('cart', []);
+            return $this->render('shop/product-card.html.twig', ['cart' => $cart, 'product' => $product, 'products' => $productRepository -> getSimilarProducts()]);
+    }
+
+    /**
+     * @Route("/cart/add/{slug}", name="cart_add")
+     */
+    public function addToCartGrivna($slug, ProductRepository $productRepository, PurchaseRepository $purchaseRepository, SessionInterface $session, Request $request)
+    {
+            $operation = 'plus';
+            $operation = 'minus';
+            $purchaseReference = "DADA" . date('ymd') . rand(1000, 9999);
+
+            $sessionId = session_id();
+            $cart = $session->get('cart', []);
+    
+            $product = $productRepository->findBy(array('slug'=>$slug));
+            foreach ($product as $prod) {
+    
+                $cart[] = [
+                    'product' => $prod,
+                    'quantity' => 1,
+                    ];
+        }
+    
+            $session->set('cart', $cart);
+    
+            return $this->redirectToRoute(
+                'product_card',
+                [   
+                    'slug' => $slug,
+                ]
+            );
+        }
+
+
 }

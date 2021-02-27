@@ -11,6 +11,7 @@
 	    <!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <!-- FONTAWESOME CSS -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 		<!-- Normalize CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
 		
@@ -24,7 +25,7 @@
 
     </head>
     <body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container">
 			<a class="navbar-brand" height="100" href="#"><img src="{{ asset('/assets/images/logo/amnesia-logo.png') }}" alt="логотип компании Амнезия"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,8 +58,12 @@
 	<!-- MARQUEE JS (RUNNING BANDO HOME PAGE) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js"></script>
+	<!-- INSTAGRAM JS -->
+		<script src='https://www.sociablekit.com/app/embed/instagram-feed/widget.js' async defer></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.core.min.js' async defer></script>
 	<!-- CUSTOM JS-->
 	    <script src="{{ asset('assets/js/custom.js') }}"></script>
+		<script src="{{ asset('assets/js/calendar.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
  </html>

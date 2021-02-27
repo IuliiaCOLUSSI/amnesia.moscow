@@ -30,6 +30,10 @@ vich_uploader:
             uri_prefix: /uploads/announcementImage
             upload_destination: '%kernel.project_dir%/public/uploads/announcementImage'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        article_background_image:
+            uri_prefix: /uploads/articleImage
+            upload_destination: '%kernel.project_dir%/public/uploads/articleImage'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
             
     #mappings:

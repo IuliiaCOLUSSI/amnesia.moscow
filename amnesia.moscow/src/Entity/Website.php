@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\WebsiteRepository;
 
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -33,6 +34,7 @@ class Website
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="website_background_image", fileNameProperty="mainBackgroundImage")
+     * @Assert\File
      *
      * @var File
      */
@@ -47,6 +49,7 @@ class Website
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="about_us_background_image", fileNameProperty="aboutUsBackgroundImage")
+     * @Assert\File
      *
      * @var File
      */
@@ -89,12 +92,18 @@ class Website
      */
     private $customSeasonalBlocks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FeedBack::class, mappedBy="website", cascade={"persist"})
+     */
+    private $feedBacks;
+
     public function __construct()
     {
         $this->catalogCategory = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->announcements = new ArrayCollection();
         $this->customSeasonalBlocks = new ArrayCollection();
+        $this->feedBacks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,6 +329,36 @@ class Website
             // set the owning side to null (unless already changed)
             if ($customSeasonalBlock->getWebsite() === $this) {
                 $customSeasonalBlock->setWebsite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FeedBack[]
+     */
+    public function getFeedBacks(): Collection
+    {
+        return $this->feedBacks;
+    }
+
+    public function addFeedBack(FeedBack $feedBack): self
+    {
+        if (!$this->feedBacks->contains($feedBack)) {
+            $this->feedBacks[] = $feedBack;
+            $feedBack->setWebsite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedBack(FeedBack $feedBack): self
+    {
+        if ($this->feedBacks->removeElement($feedBack)) {
+            // set the owning side to null (unless already changed)
+            if ($feedBack->getWebsite() === $this) {
+                $feedBack->setWebsite(null);
             }
         }
 

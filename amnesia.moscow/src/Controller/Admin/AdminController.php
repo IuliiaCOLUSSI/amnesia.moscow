@@ -19,6 +19,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\PartnerRepository;
 use App\Repository\ProductRepository;
 use App\Repository\WebsiteRepository;
+use App\Repository\FeedBackRepository;
 use App\Form\WebsiteManagementFormType;
 use App\Repository\AnnouncementRepository;
 use App\Repository\CatalogCategoryRepository;
@@ -121,6 +122,7 @@ class AdminController extends AbstractController
 
 
         $form = $this->createForm(ProductFormType::class);
+        $form->remove('isProductOfTheWeek');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
         $product = $productRepository->findOneBy([], ['id' => 'desc']);
@@ -326,7 +328,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/website-management/home-page", name="website_management_home_page")
      */
-    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, CustomSeasonalBlockRepository $customSeasonalBlocksRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository)
+    public function websiteManagementHomePage(Request $request, WebsiteRepository $websiteRepository, CustomSeasonalBlockRepository $customSeasonalBlocksRepository, PartnerRepository $partnerRepository, AnnouncementRepository $announcementRepository, FeedBackRepository $feedBackRepository)
     {
 
         if($websiteRepository->findAll() != null) {
@@ -338,6 +340,7 @@ class AdminController extends AbstractController
         $partners = $partnerRepository -> findAll();
         $customSeasonalBlocks = $customSeasonalBlocksRepository -> findAll();
         $announcements = $announcementRepository -> findAll();
+        $feedbacks = $feedBackRepository -> findAll();
 
         $form = $this->createForm(WebsiteManagementFormType::class, $website);
         $form->handleRequest($request);
@@ -361,7 +364,8 @@ class AdminController extends AbstractController
             'website' => $website,
             'partners' => $partners,
             'customSeasonalBlocks' => $customSeasonalBlocks,
-            'announcements' => $announcements
+            'announcements' => $announcements,
+            'feedbacks' => $feedbacks
         ]);
     }
 

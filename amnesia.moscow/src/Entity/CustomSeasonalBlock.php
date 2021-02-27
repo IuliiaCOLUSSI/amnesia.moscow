@@ -6,6 +6,7 @@ use App\Repository\CustomSeasonalBlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -41,6 +42,7 @@ class CustomSeasonalBlock
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="custom_block_image", fileNameProperty="mainImage")
+     * @Assert\File
      *
      * @var File
      */

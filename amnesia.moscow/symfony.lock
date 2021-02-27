@@ -1,4 +1,7 @@
 {
+    "beberlei/doctrineextensions": {
+        "version": "v1.3.0"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -119,6 +122,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
+    },
+    "nucleos/antispam-bundle": {
+        "version": "2.2.0"
     },
     "php-http/discovery": {
         "version": "1.13.0"

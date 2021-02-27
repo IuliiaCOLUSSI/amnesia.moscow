@@ -9,6 +9,10 @@
     color: white;
 }
 
+.dropdown-toggle:after {
+    display: none!important;
+}
+
 /* DATATABLE */
 
 .table-striped>tbody>tr:nth-of-type(odd) {
@@ -43,6 +47,12 @@
 
 .vich-image input {
     margin-bottom: 20px!important;
+}
+
+.feed-back-block--admin-website {
+    background: url('../images/icons_front/partner-comments-block.png') 100% 100% no-repeat;
+    background-size: contain;
+    height: 154px;
 }
 
 /* ADD PRODUCT STYLES */
