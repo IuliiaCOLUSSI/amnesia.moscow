@@ -33,9 +33,11 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function Home(Request $request, ProductRepository $productRepository, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder, FeedBackRepository $feedBackRepository)
+    public function Home(SessionInterface $session, Request $request, ProductRepository $productRepository, WebsiteRepository $websiteRepository, CatalogCategoryRepository $catalogCategoryRepository, AnnouncementRepository $announcementRepository, PartnerRepository $partnerRepository, UserPasswordEncoderInterface $encoder, FeedBackRepository $feedBackRepository)
     {
+        $panier = $session->get('panier', []);
         $user = new User;
+
 
         $userId = $user->getId();
         
@@ -99,15 +101,29 @@ class ShopController extends AbstractController
      */
     public function Catalog(Request $request, ProductRepository $productRepository, CatalogCategoryRepository $catalogCategoryRepository)
     {
+        $user = new User;
         $catalogCategories = $catalogCategoryRepository->findAll();
         $products = $productRepository ->findBy(
             array(),
             array('price' => 'ASC')
         );
 
+        $form2 = $this->createForm(UserFormType::class, $user);
+        $form2->remove('lastName');
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $userQuestion = $form2 -> getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userQuestion);
+            $em->flush();
+    }
+
+
         return $this->render('shop/catalog.html.twig', [
             'products' => $products,
             'catalogCategories' => $catalogCategories,
+            'form2' => $form2->createView(),
         ]);
     }
 
@@ -115,16 +131,32 @@ class ShopController extends AbstractController
     /**
      * @Route("/catalog/{slug}", name="product_card")
      */
-    public function ProductCard(Product $product, ProductRepository $productRepository, SessionInterface $session)
+    public function ProductCard(Request $request, Product $product, ProductRepository $productRepository, SessionInterface $session, CatalogCategoryRepository $catalogCategoryRepository)
     {
         $cart = $session->get('cart', []);
-            return $this->render('shop/product-card.html.twig', ['cart' => $cart, 'product' => $product, 'products' => $productRepository -> getSimilarProducts()]);
+        
+        $user = new User;
+
+        $form2 = $this->createForm(UserFormType::class, $user);
+        $form2->remove('lastName');
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $userQuestion = $form2 -> getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userQuestion);
+            $em->flush();
+    }
+
+        $catalogCategories = $catalogCategoryRepository->findAll();
+        $cart = $session->get('cart', []);
+            return $this->render('shop/product-card.html.twig', ['cart' => $cart, 'product' => $product, 'catalogCategories' => $catalogCategories, 'products' => $productRepository -> getSimilarProducts(), 'form2' => $form2->createView(),]);
     }
 
     /**
      * @Route("/cart/add/{slug}", name="cart_add")
      */
-    public function addToCartGrivna($slug, ProductRepository $productRepository, PurchaseRepository $purchaseRepository, SessionInterface $session, Request $request)
+    public function addToCart($slug, ProductRepository $productRepository, PurchaseRepository $purchaseRepository, SessionInterface $session, Request $request)
     {
             $operation = 'plus';
             $operation = 'minus';

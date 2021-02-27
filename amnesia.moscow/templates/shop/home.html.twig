@@ -102,19 +102,20 @@ function fill_table(month, month_length, indexMonth) {
             <div class="row">
                     <div class="col-md-6 week-choice--home-page" style="background: url('{{ vich_uploader_asset(isProductOfTheWeek, 'imageFile') }}') 100% 100% no-repeat; background-size: cover; height: 0rem; padding-top: 26.64%;">
                      </div>
-                    <div class="col-md-4 m-3 mt-0">
+                    <div class="col-md-4 m-3 mt-0 pb-5">
                         <h2>Выбор этой недели</h2>
                         <hr>
                         <h4 class="mb-4">{{ isProductOfTheWeek.title }}</h4>
                         <h4 class="mb-4">{{ isProductOfTheWeek.description }}</h4>
                         <h4 class="mb-4">{{ isProductOfTheWeek.price }}</h4>
                         <div class="form-footer d-flex justify-content-end mt-5">
-                            <a class="btn btn-white amnesia-custom-transparent-button">Заказать прямо сейчас</a>
-                        </div>
+                          <a class="btn btn-white amnesia-custom-transparent-button" reference="{{ isProductOfTheWeek.slug }}" href="{{ path('cart_add', {slug: isProductOfTheWeek.slug } ) }}">
+                              Заказать прямо сейчас
+                          </a>
                     </div>
              </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5">
             <div class="row">
             {% for catalogCategory in catalogCategories %}
             <div class="col-md-4 catalog-card--home-page">
@@ -137,9 +138,23 @@ function fill_table(month, month_length, indexMonth) {
         <div class="container">
         <h2 class="text-center">Быстрый заказ</h2>
         
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5">
         <div class="mb-4 mt-4 col-md-6 margin-center">
             <div class="row">
+            <label class="form-selectgroup-item">
+								 {% for key, conditionTypeItem in form.conditionType.children %}
+								{{ form_widget(conditionTypeItem[0]) }}
+							{% endfor %}
+                  <span class="form-selectgroup-label d-flex align-items-center p-3">
+                    <span class="me-3">
+                      <span class="form-selectgroup-check"></span>
+                    </span>
+                    <span class="form-selectgroup-label-content">
+                      <span class="form-selectgroup-title strong mb-1">Advanced</span>
+                      <span class="d-block text-muted">Insert charts and additional advanced analyses to be inserted in the report</span>
+                    </span>
+                  </span>
+                </label>
                           <div class="form-selectgroup">
                             <label class="form-selectgroup-item col-md-4">
                               <input type="radio" name="icons" value="home" class="form-selectgroup-input" checked="">
@@ -214,7 +229,7 @@ function fill_table(month, month_length, indexMonth) {
     </div>
   </div>
 </div>
-            </div>
+       </div>
             <div class="col-md-6">
                 <form class="row g-3">
                 <div class="col-md-12">
@@ -255,14 +270,14 @@ function fill_table(month, month_length, indexMonth) {
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Check me out
+                    {{ form_widget(form1.isAgreeConditionsOfUse) }}
+                    <label class="form-check-label mt-2" for="gridCheck">
+                        Я соглашаюсь с условиями использования
                     </label>
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
+                    <button type="submit" class="btn col-md-12 mt-3 amnesia-custom-transparent-button">Оформить заказ</button>
                 </div>
                 {{ form_end(form1) }} 
             </div>
@@ -271,7 +286,7 @@ function fill_table(month, month_length, indexMonth) {
        </div>
     </section>
     <section>
-    <div class="container">
+    <div class="container pb-5">
      <h2 class="text-center">С любовью к нашим клиентам</h2>
          <div class="col-md-12">
             <div class="row">
@@ -291,7 +306,7 @@ function fill_table(month, month_length, indexMonth) {
     </div>
     </section>
     <section>
-    <div class="col-12 d-flex justify-content-center" style="background: url('{{ vich_uploader_asset(website, 'aboutUsBackgroundImageFile') }}') 100% 100% no-repeat; background-size: cover;">
+    <div class="col-12 d-flex justify-content-center pb-5" style="background: url('{{ vich_uploader_asset(website, 'aboutUsBackgroundImageFile') }}') 100% 100% no-repeat; background-size: cover;">
         <div class="col-md-4 bg-white d-flex justify-content-center mt-4 mb-4 p-5 rounded-corners">
         <img src="{{ asset('/assets/images/logo/amnesia-logo-custom.png') }}" alt="логотип компании Амнезия">
         <p>{{ website.aboutUsBody }}</p>
@@ -300,39 +315,57 @@ function fill_table(month, month_length, indexMonth) {
     </section>
     <section>
         <div class="container">
-        <h2 class="text-center">Условия доставки</h2>
-        <div class="col-md-12">
+        <h2 class="text-center pb-5">Условия доставки</h2>
+        <div class="col-md-12 pb-5">
             <div class="row">
                 <div class="col-md-4">
+                <h5>Хотим уточнить, что букеты и композиции - это произведение искусства, повторить их практически невозможно, в силу того, что все и художники цветы разные. Наши флористы одни из лучших в своем деле, поэтому можете полностью доверять их профессионализму и качеству выполнения заказа.</h5>
+                <hr>
+                <h5>Хотим уточнить, что букеты и композиции - это произведение искусства, повторить их пракневозможно, в силу того, что все и художники цветы разные. Наши флористы одни из лучших деле, поэтому можете полностью доверять их профессионализму и качеству выполнения заказа.</h5>
                 </div>
                 <div class="col-md-4">
+                  <img src="{{ asset('/assets/images/icons_front/map-green.png') }}" class="map--home-page" alt="...">
                 </div>
                 <div class="col-md-4">
+                  <h5 class="text-right">Хотим уточнить, что букеты и композиции - это произведение искусства, повторить их практневозможно, в силу того, что все и художники цветы разные. Наши флористы одни из лучших вделе, поэтому можете полностью доверять их профессионализму и качеству выполнения заказа.</h5>
+                <hr>
+                <h5 class="text-right">Хотим уточнить, что букеты и композиции - это произведение искусства, повторить их пракневозможно, в силу того, что все и художники цветы разные. Наши флористы одни из лучших деле, поэтому можете полностью доверять их профессионализму и качеству выполнения заказа.</h5>
                 </div>
             </div>
         </div>
         <h2 class="text-center">Цены</h2>
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5 text-center">
             <div class="row">
                 <div class="col-md-4">
+                    <button type="button" class="btn btn-circle">1</button>
+                <h4>Доставка по Москве в районе 3-кольца  — 500 руб.</h4>
+                <hr>
+                <p>500 руб.</p>
                 </div>
                 <div class="col-md-4">
+                 <button type="button" class="btn btn-circle">2</button>
+                <h4>Доставка по Москве в районе 3-кольца  — 500 руб.</h4>
+                <p>500 руб.</p>
                 </div>
                 <div class="col-md-4">
+                 <button type="button" class="btn btn-circle">3</button>
+                  <h4>Доставка по Москве в районе 3-кольца  — 500 руб.</h4>
+                <hr>
+                <p>500 руб.</p>
                 </div>
             </div>
         </div>
         </div>
     </section>
         <section>
-        <div class="col-md-4">
+        <div class="col-md-4 pb-5">
         <div class="logo--main-page">
         </div>
         <p></p>
         </div>
     </section>
     <section>
-        <div class="container">
+        <div class="container pb-5">
         <h2 class="text-center">Наши клиенты</h2>
         <div class="col-md-12">
         <div class="row">
@@ -343,7 +376,7 @@ function fill_table(month, month_length, indexMonth) {
         {% endfor %}
         </div>
         <h2 class="text-center">Что наши клиенты думают о нас</h2>
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5">
             <div class="row">
                 <div class="col-md-4">
                         {% for feedback in feedbacks %}
@@ -362,7 +395,7 @@ function fill_table(month, month_length, indexMonth) {
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5">
         <div class="row">
         <div class="col-md-4 d-flex justify-content-center align-items-end">
         <img class="instagram-icon--home-page" src="{{ asset('/assets/images/icons_front/instagram-thin.png') }}" alt="логотип компании Амнезия">
@@ -375,58 +408,4 @@ function fill_table(month, month_length, indexMonth) {
         </div>
         </div>
     </section>
-    <footer>
-            <div class="container">      
-                <div class="col-md-12">
-                <div class="row">  
-                    <div class="col-md-6">
-                    <h4></h4>
-                    <p></p>
-                    <h4></h4>
-                    <p></p>
-                    <h4></h4>
-                    <p></p>
-                    </div>
-                    <div class="col-md-6">
-              {{ form_start(form2) }}
-            <div class="row">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
-                <form class="row g-3">
-                <div class="col-md-12">
-                <div class="row">
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Ваше имя</label>
-                    {{ form_widget(form2.firstName) }}
-                </div>
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Ваш номер телефона</label>
-                    {{ form_widget(form2.phoneNumber) }}
-                </div>
-                <div class="col-12">
-                    <label for="inputPassword4" class="form-label">Ваш email</label>
-                    {{ form_widget(form2.email) }}
-                </div>
-                <div class="col-12">
-                    <label for="inputAddress2" class="form-label">Ваше сообщение</label>
-                    {{ form_widget(form2.userQuestions.vars.prototype) }}
-                </div>
-                <div class="col-12">
-                    <div class="form-check">
-                    {{ form_widget(form2.isAgreeConditionsOfUse) }}
-                    <label class="form-check-label" for="gridCheck">
-                        Я соглашаюсь с условиями использования
-                    </label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
-                </div>
-                {{ form_end(form2) }} 
-                </div>
-                </div>
-            </div>
-            </div>
-    </footer>
 {% endblock %}

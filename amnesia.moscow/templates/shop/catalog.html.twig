@@ -112,14 +112,16 @@
                   <div class="card card-sm">
                     <a href="{{ url('product_card', {slug:product.slug}) }}"><img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"></a>
                     <div class="card-body">
-                          <div><p class="text-center">{{ product.title }}</p></div>
                           <div class="col-12">
                             <div class="row">
-                              <div class="col-6">
+                              <div class="col-10">
+                                <div><p>{{ product.title }}</p></div>
                                 <div class="text-muted">{{ product.price }}</div>
                               </div>
-                              <div class="col-6">
-                                <div><i>add to cart icon</i></div>
+                              <div class="col-2">
+                               <a class="amnesia-custom-transparent-button icon--cart" reference="{{ product.slug }}" href="{{ path('cart_add', {slug: product.slug } ) }}">
+                              <img src="{{ asset('/assets/images/icons_front/shopping-cart.png') }}" alt="иконка корзины">
+                              </a>
                               </div>
                             </div>
                           </div>

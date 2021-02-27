@@ -17,6 +17,8 @@
 		
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/home_page.css') }}"> 
+		<link rel="stylesheet" href="{{ asset('assets/css/product-card.css') }}"> 
+		<link rel="stylesheet" href="{{ asset('assets/css/catalog.css') }}"> 
 
 		<!-- TABLER CSS files -->
 		<link href="https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
@@ -27,7 +29,7 @@
     <body>
 		<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container">
-			<a class="navbar-brand" height="100" href="#"><img src="{{ asset('/assets/images/logo/amnesia-logo.png') }}" alt="логотип компании Амнезия"></a>
+			<a class="navbar-brand" height="100" href="{{ path('home') }}"><img src="{{ asset('/assets/images/logo/amnesia-logo.png') }}" alt="логотип компании Амнезия"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -43,13 +45,63 @@
 				<a class="nav-link" href="#">Pricing</a>
 				</li>
 			</ul>
-			<span class="navbar-text">
-				Navbar text with an inline element
+			<span class="navbar-text icons--header">
+				<a class="navbar-brand" height="10" href="#"><img src="{{ asset('/assets/images/icons_front/instagram-black.png') }}" alt="иконка Instagram"></a>
+			</span>
+			<span class="navbar-text icons--header">
+				<a class="navbar-brand" height="10" href="#"><img src="{{ asset('/assets/images/icons_front/shopping-cart.png') }}" alt="иконка корзины"></a>
 			</span>
 			</div>
 		</div>
 		</nav>
     {% block container %}{% endblock %}
+	    <footer>
+            <div class="container pt-5 pb-5">      
+              <div class="col-md-12">
+              <div class="row">  
+            <div class="col-md-6">
+            <h3>АДРЕС</h3>
+            <p>Москва, Кутузовский 29, бутик Amnesia</p>
+            <h3>ТЕЛЕФОН</h3>
+            <p>8 925 0255551</p>
+            <h3>НАША ПОЧТА</h3>
+            <p>flowers@amnesiamoscow.ru</p>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                <div class="row">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Ваше имя</label>
+                    {{ form_widget(form2.firstName) }}
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Ваш номер телефона</label>
+                    {{ form_widget(form2.phoneNumber) }}
+                </div>
+                <div class="col-12">
+                    <label for="inputPassword4" class="form-label">Ваш email</label>
+                    {{ form_widget(form2.email) }}
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Ваше сообщение</label>
+                    {{ form_widget(form2.userQuestions.vars.prototype) }}
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                    {{ form_widget(form2.isAgreeConditionsOfUse) }}
+                    <label class="form-check-label mt-2" for="gridCheck">
+                        Я соглашаюсь с условиями использования
+                    </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn col-md-12 amnesia-custom-transparent-black-button">Оформить заказ</button>
+                </div>
+                {{ form_end(form2) }} 
+                </div>
+            </div>
+            </div>
+    </footer>
 
     <!-- JS SCRIPTS -->
     <!-- BOOTSTRAP JS-->
@@ -60,10 +112,15 @@
 		<script src="https://cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js"></script>
 	<!-- INSTAGRAM JS -->
 		<script src='https://www.sociablekit.com/app/embed/instagram-feed/widget.js' async defer></script>
+	<!-- CALENDAR JS -->
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.core.min.js' async defer></script>
+	<!-- PRODUCT CARD JS -->
+		<script src='https://facebook.github.io/rebound-js/rebound.js' async defer></script>
 	<!-- CUSTOM JS-->
 	    <script src="{{ asset('assets/js/custom.js') }}"></script>
 		<script src="{{ asset('assets/js/calendar.js') }}"></script>
-        {% block javascripts %}{% endblock %}
+		<script src="{{ asset('assets/js/product-card.js') }}"></script>
+        {% block javascripts %}
+		{% endblock %}
     </body>
  </html>

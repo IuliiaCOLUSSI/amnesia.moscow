@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+        <script>
+            function zoom(e){
+            var zoomer = e.currentTarget;
+            e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+            e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+            x = offsetX/zoomer.offsetWidth*100
+            y = offsetY/zoomer.offsetHeight*100
+            zoomer.style.backgroundPosition = x + '% ' + y + '%';
+            }
+        </script>
+{% endblock %}
+
+{% block title %}Каталог салона цветов и подарков "Amnesia"{% endblock %}
+
+{% block container %}
+<section>
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+                {% for catalogCategory in catalogCategories %}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">{{ product.catalogCategory.title }}</a>
+                    </li>
+                </ul>
+               {% endfor %}
+			</div>
+		</div>
+		</nav>
+<div class="col-md-8 mt-5 margin-auto">
+    <div class="row">
+    <div class="col-md-5">
+        <a href="{{ url('product_card', {slug:product.slug}) }}">
+        <figure class="zoom" style="background: url('{{ vich_uploader_asset(product, 'imageFile') }}');" onmousemove='zoom(event)'>
+        <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"></figure>
+        </a>
+    </div>
+    <div class="col-md-7">
+            <h3>{{ product.title }}</h3>
+            <div class="col-md-12 m-2">
+                <div class="row text-muted">
+                {{ product.color }}
+                {{ product.forGender }}
+                {{ product.shape }}
+                </div>
+            </div>
+            <p>{{ product.description }}</p>             
+            <p>{{ product.price }} руб.</p> 
+        <div class="col-12 mt-4 text-center choice-price-block--product-card"> 
+        <div class="row"> 
+        <div class="col-md-3 col-md-3-custom  m-2 p-2">
+            <p class="m-0">{{ product.title }}</p>
+            <p class="m-0">{{ product.price }} руб.</p> 
+        </div>
+        <div class="col-md-3 col-md-3-custom  m-2 p-2">
+            <p class="m-0">{{ product.title }} & подарочная ваза</p>
+            <p class="m-0">{{ product.price }} руб.</p> 
+        </div>
+        <div class="col-md-3 col-md-3-custom  m-2 p-2">
+            <p class="m-0">{{ product.title }} & подарочная коробка</p>
+            <p class="m-0">{{ product.price }} руб.</p> 
+        </div>
+            <div class="form-footer">
+                <a class="btn btn-white amnesia-custom-transparent-button" reference="{{ product.slug }}" href="{{ path('cart_add', {slug: product.slug } ) }}">
+                   Добавить в корзину
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+<section>
+        <h3 class="random pr-5 mr-5 text-center mt-5">Эти товары могут Вам понравиться</h3>
+        <div class="row mb-5">
+    {% for product in products %}
+        <div class="col-md-2 col-sm-2 p-2 m-5">
+            <img src="{{ vich_uploader_asset(product, 'imageFile') }}" }}> 
+            <div class="col-md-12 col-sm-12 text-center">
+            <a href="{{ url('product_card', {slug:product.slug}) }}">
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.description }}</p>             
+            <p>{{ product.price }} руб.</p>   
+    </a>     
+    </div>
+    </div>
+    {% endfor %}
+        </div></section>
+{% endblock %}
